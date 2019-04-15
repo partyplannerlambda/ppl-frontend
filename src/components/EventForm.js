@@ -1,12 +1,16 @@
 import React, {useState} from 'react';
 
 export default function(props){
-    const [formInputs, setFormInputs] = useState({
-        name: "",
-        theme: "",
-        n_of_guests: undefined,
-        budget: undefined,
-        date: undefined
+    const [formInputs, setFormInputs] = useState(() => {
+        const date = new Date(Date.now())
+        let monthString = date.getMonth() < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1;
+        return ({
+            name: "",
+            theme: "",
+            n_of_guests: 0,
+            budget: 0,
+            date: `${date.getFullYear()}-${monthString}-${date.getDate()}`
+        })
     })
 
     const handleInput = event => {
@@ -41,7 +45,7 @@ export default function(props){
             />
             <input
                 type="text"
-                name="guests"
+                name="n_of_guests"
                 placeholder="Number of Guests"
                 value={formInputs.n_of_guests}
                 onChange={handleInput}
