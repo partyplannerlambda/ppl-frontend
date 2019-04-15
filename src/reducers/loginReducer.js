@@ -4,15 +4,48 @@ import {LOGGING_IN, LOGGING_IN_SUCCESS, LOGGING_IN_FAILURE} from '../actions/log
 const initialState = {
     token: window.localStorage.getItem(AUTH_TOKEN) || null,
     isLoggingIn: false,
-    error: '',
-    isLoggedIn: false
+    loginError: null,
+    isLoggedIn: false,
+    registerSuccesful: false,
+    isRegistering: false,
+    registerError: null
+}
+
+const caseRegisterUser = state => ({
+    ...state,
+    isRegistering: true,
+    registerError: null
+})
+
+const caseRegisterUserSuccesful = (state, action) => {
+    if (!action.data.password) {
+        return ({
+            ...state,
+            registerError: "something went wildly wrong"
+        })
+    }
+    return ({
+        ...state,
+        isRegistering: false,
+        registerError: null,
+        registerSuccesful: !!action.data.password
+    })
+}
+
+const caseRegisterUserFailure = (state, action) => {
+    let errorMessage = action.payload.message
+    return ({
+        ...state,
+        isRegistering: false,
+        registerError: errorMessage
+    })
 }
 
 
 const caseLoggingIn = state => ({
     ...state,
     isLoggingIn: true,
-    error: '',
+    loginError: null,
     isLoggedIn: false
 })
 
@@ -22,7 +55,7 @@ const caseLoggingInSuccess = (state, action) => {
         ...state,
         token,
         isLoggingIn: false,
-        error: '',
+        loginError: null,
         isLoggedIn: true
     })
 }
@@ -33,7 +66,7 @@ const caseLoggingInFailure = (state, action) => {
         ...state,
         token: null,
         isLoggingIn: false,
-        error: message,
+        loginError: message,
         isLoggedIn: false
     })
 }
