@@ -1,5 +1,8 @@
 import { AUTH_TOKEN } from '../config'
-import {LOGGING_IN, LOGGING_IN_SUCCESS, LOGGING_IN_FAILURE} from '../actions/loginActions.js'
+import { 
+    LOGGING_IN, LOGGING_IN_SUCCESS, LOGGING_IN_FAILURE,
+    REGISTER_USER, REGISTER_USER_SUCCESS, REGISTER_USER_FAILURE
+} from '../actions/loginActions.js'
 
 const initialState = {
     token: window.localStorage.getItem(AUTH_TOKEN) || null,
@@ -17,8 +20,8 @@ const caseRegisterUser = state => ({
     registerError: null
 })
 
-const caseRegisterUserSuccesful = (state, action) => {
-    if (!action.data.password) {
+const caseRegisterUserSuccess = (state, action) => {
+    if (!action.payload) {
         return ({
             ...state,
             registerError: "something went wildly wrong"
@@ -28,7 +31,7 @@ const caseRegisterUserSuccesful = (state, action) => {
         ...state,
         isRegistering: false,
         registerError: null,
-        registerSuccesful: !!action.data.password
+        registerSuccesful: !!action.payload
     })
 }
 
@@ -80,6 +83,12 @@ export default (state = initialState, action) => {
             return caseLoggingInSuccess(state, action)
         case LOGGING_IN_FAILURE:
             return caseLoggingInFailure(state, action)
+        case REGISTER_USER:
+            return caseRegisterUser(state)
+        case REGISTER_USER_SUCCESS:
+            return caseRegisterUserSuccess(state,action)
+        case REGISTER_USER_FAILURE:
+            return caseRegisterUserFailure(state,action)
         default:
             return state
     }

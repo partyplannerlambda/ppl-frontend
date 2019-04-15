@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import styled from 'styled-components';
 import {connect} from 'react-redux';
-import {Link} from 'react-router-dom'
+import {Link, Redirect} from 'react-router-dom'
 
 import { login as doLogin, register as doRegister} from '../actions/loginActions'
 
@@ -9,6 +9,12 @@ export function LoginView(props){
 
     if (props.isLoggingIn || props.isRegistering) {
         return (<div>Validating</div>)
+    }
+    if (props.isLoggedIn) {
+        return <Redirect to="/" />
+    }
+    if (props.registerSuccesful && props.match.url.includes("register")){
+        return <Redirect to="/login" />
     }
 
     const [cred, setCred] = useState({
@@ -30,14 +36,6 @@ export function LoginView(props){
     const loginSubmit = event => {
         event.preventDefault();
         props.doLogin(cred)
-            .then(res => {
-                console.log("inside Login.js")
-                console.log("successful Login", res)
-                props.history.push('/');
-            })
-            .catch(err => {
-                console.log(err)
-            })
     }
 
     const registerSubmit = event => {
@@ -47,16 +45,14 @@ export function LoginView(props){
             return
         }
 
+        setError("")
+
         let {confirm, ...rest} = cred;
 
         props.doRegister(rest)
             .then(res => {
-                console.log("inside Login.js")
-                console.log("Succesful Register", res)
-                props.history.push('/login');
-            })
-            .catch(err => {
-                console.log(err)
+                console.log("inside Login.js, this should fire 2nd")
+                
             })
 
     }
@@ -64,8 +60,10 @@ export function LoginView(props){
     return (
         <Login onSubmit={event => register ? registerSubmit(event) : loginSubmit(event)}>
             <h1>{register ? "Register" : "Login"}</h1>
-            {props.loginError && <div>{props.loginError}</div>}
-            {error && <div>{error}</div>}
+            {props.registerSuccesful && <div className="prompt">Login with your newly Created Credentials!</div>}
+            {props.loginError && <div className="errorBox">{props.loginError}</div>}
+            {props.registerError && <div className="errorBox">{props.registerError}</div>}
+            {error && <div className="errorBox">{error}</div>}
             <form>
                 <input
                     name="username"

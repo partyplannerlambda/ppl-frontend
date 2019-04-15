@@ -15,14 +15,11 @@ export const register = credentials => dispatch => {
     return axios
         .post('auth/register', credentials)
         .then(res => {
-            console.log("inside loginActions.js")
-            console.log("succesful register", res)
+            console.log("inside loginActions.js This should fire first", res)
             dispatch({
                 type: REGISTER_USER_SUCCESS,
                 payload: res.data.password
             })
-
-            return res;
         })
         .catch(err => {
             console.log("inside loginActions.js")
