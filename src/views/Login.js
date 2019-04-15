@@ -40,21 +40,15 @@ export function LoginView(props){
 
     const registerSubmit = event => {
         event.preventDefault();
+        
         if (cred.password !== cred.confirm){
             setError("Passwords do not match")
             return
         }
 
         setError("")
-
         let {confirm, ...rest} = cred;
-
         props.doRegister(rest)
-            .then(res => {
-                console.log("inside Login.js, this should fire 2nd")
-                
-            })
-
     }
 
     return (
