@@ -3,14 +3,14 @@ import React from 'react';
 // import {connect} from 'react-redux';
 
 import Header from '../components/Header'
-import PartyForm from '../components/PartyForm'
+import EventForm from '../components/EventForm'
 
 export default function(props){
 
     return (<>
         <Header />
         <div>
-            <PartyForm />
+            <EventForm />
         </div>
     </>)
 }
