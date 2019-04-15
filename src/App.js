@@ -10,7 +10,7 @@ export default function(props){
   return (
     <div className="App">
       <Route exact path="/login" component={Login}/>
-      <PrivateRoute exact path="/" component={MainView} />
+      <Route exact path="/" component={MainView} />
     </div>
   );
 }
