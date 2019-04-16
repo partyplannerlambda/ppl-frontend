@@ -1,0 +1,28 @@
+| Authentication Endpoints|
+
+| https://party-planner-backend.herokuapp.com/register |
+| POST | username, password |
+
+| https://party-planner-backend.herokuapp.com/login |
+| POST | username, password|
+| Response | username, userId, token |
+
+
+| Party Endpoints |
+
+| https://party-planner-backend.herokuapp.com/parties |
+| POST | party_name, n_of_guests, date, theme, budget, user_id |
+| GET | /parties |
+| GET | /parties/:id |
+| PUT | /parties/:id |
+| DELETE | /parties/:id |
+
+
+| Shopping List Endpoints |
+
+| https://party-planner-backend.herokuapp.com/shopping |
+| POST | |
+| GET | /parties/:id/shopping |
+| GET | /parties/:id/shopping/:id |
+| PUT | /parties/:id/shopping/:id |
+| DELETE | parties/:id/shopping/:id |

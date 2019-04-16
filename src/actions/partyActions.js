@@ -22,7 +22,8 @@ export const getEventsList = () => dispatch => {
         .catch(err => {
             console.log(err)
             dispatch({
-                type: GET_EVENTS_LIST_FAILURE
+                type: GET_EVENTS_LIST_FAILURE,
+                payload: err.message
             })
         })
 }
@@ -39,17 +40,19 @@ export const getEvent = event => dispatch => {
     })
 
     axios
-        .get()
+        .get(`/parties/${event.id}`)
         .then(res => {
             console.log(res)
             dispatch({
-                type: GET_EVENT_SUCCESS
+                type: GET_EVENT_SUCCESS,
+                payload: res.data
             })
         })
         .catch(err => {
             console.log(err)
             dispatch({
-                type: GET_EVENT_FAILURE
+                type: GET_EVENT_FAILURE,
+                payload: err.message
             })
         })
 }
@@ -71,13 +74,15 @@ export const addEvent = (userId, event) => dispatch => {
         .then(res => {
             console.log(res)
             dispatch({
-                type: ADD_EVENT_SUCCESS
+                type: ADD_EVENT_SUCCESS,
+                payload: res.data
             })
         })
         .catch(err => {
             console.log(err)
             dispatch({
-                type: ADD_EVENT_FAILURE
+                type: ADD_EVENT_FAILURE,
+                payload: err.message
             })
         })
 }
@@ -98,13 +103,15 @@ export const updateEvent = event => dispatch => {
         .then(res => {
             console.log(res)
             dispatch({
-                type: UPDATE_EVENT_SUCCESS
+                type: UPDATE_EVENT_SUCCESS,
+                payload: res.data
             })
         })
         .catch(err => {
             console.log(err)
             dispatch({
-                type: UPDATE_EVENT_FAILURE
+                type: UPDATE_EVENT_FAILURE,
+                payload: err.message
             })
         })
 }
@@ -121,17 +128,19 @@ export const deleteEvent = event => dispatch => {
     })
 
     axios
-        .post(`parties/${event.id}`, event)
+        .delete(`parties/${event.id}`)
         .then(res => {
             console.log(res)
             dispatch({
-                type: DELETE_EVENT_SUCCESS
+                type: DELETE_EVENT_SUCCESS,
+                payload: res.data
             })
         })
         .catch(err => {
             console.log(err)
             dispatch({
-                type: DELETE_EVENT_FAILURE
+                type: DELETE_EVENT_FAILURE,
+                payload: err.message
             })
         })
 }
