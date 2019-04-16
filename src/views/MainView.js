@@ -1,5 +1,5 @@
 import React from 'react';
-// import styled from 'styled-components';
+import styled from 'styled-components'
 import {connect} from 'react-redux';
 
 import Header from '../components/Header'
@@ -19,9 +19,9 @@ function MainView(props){
         <Header />
         <div>
             <EventForm userId={props.userId} addEvent={event => addEvent(props.userIs, event)}/>
-            <div>
+            <CardContainer>
                 {data ? data.map(event => <EventCard key={event.id} event={event} />) : <div>Looks like we dont have any events</div>}
-            </div>
+            </CardContainer>
         </div>
     </>)
 }
@@ -32,3 +32,9 @@ export default connect(state => ({
     getEventsList,
     addEvent
 })(MainView)
+
+const CardContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+`
