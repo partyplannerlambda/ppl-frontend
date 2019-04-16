@@ -5,7 +5,7 @@ import {withRouter} from 'react-router-dom'
 export default withRouter(function(props){
     const {event} = props;
     if (!event) {
-        return <div>It Seems this event doesn't exist</div>
+        return <div>Loading Event Details</div>
     }
 
     const pushToPage = () => {
@@ -13,7 +13,7 @@ export default withRouter(function(props){
     }
 
     return(
-        <EventCard onClick={pushToPage}>
+        <EventCard onClick={!props.mainPage ? pushToPage : null}>
             <h2>{event.name}</h2>
             <p><strong>Theme: </strong>{event.theme}</p>
             <p><strong>Guests: </strong>{event.n_of_guests}</p>
