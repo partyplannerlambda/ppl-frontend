@@ -25,6 +25,7 @@ export default function(props){
 
     const handleSubmit = event => {
         event.preventDefault();
+        // props.addEvent(formInputs)
         console.group("Output from partyForm");
         console.log(JSON.stringify(formInputs));
         console.groupEnd();

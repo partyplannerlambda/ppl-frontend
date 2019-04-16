@@ -60,13 +60,14 @@ export const ADD_EVENT_SUCCESS = "ADD_EVENT_SUCCESS";
 export const ADD_EVENT_FAILURE = "ADD_EVENT_FAILURE";
 
 // this event is not an event DOM object. its a 'party'
-export const addEvent = event => dispatch => {
+export const addEvent = (userId, event) => dispatch => {
     dispatch({
         type: ADD_EVENT
     })
 
+    let newEvent = {userId, ...event}
     axios
-        .post('/parties', event)
+        .post('/parties', newEvent)
         .then(res => {
             console.log(res)
             dispatch({
@@ -93,7 +94,7 @@ export const updateEvent = event => dispatch => {
     })
 
     axios
-        .put(, event)
+        .put(`parties/${event.id}`, event)
         .then(res => {
             console.log(res)
             dispatch({
@@ -120,7 +121,7 @@ export const deleteEvent = event => dispatch => {
     })
 
     axios
-        .post(, event)
+        .post(`parties/${event.id}`, event)
         .then(res => {
             console.log(res)
             dispatch({

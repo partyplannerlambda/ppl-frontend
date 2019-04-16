@@ -6,6 +6,11 @@ import Header from '../components/Header'
 import EventForm from '../components/EventForm'
 import EventCard from '../components/EventCard'
 
+import {
+    getEventsList,
+    addEvent
+} from '../actions/partyActions'
+
 import data from '../dummy-data.js'
 
 function MainView(props){
@@ -13,7 +18,7 @@ function MainView(props){
     return (<>
         <Header />
         <div>
-            <EventForm />
+            <EventForm userId={props.userId} addEvent={event => addEvent(props.userIs, event)}/>
             <div>
                 {data ? data.map(event => <EventCard key={event.id} event={event} />) : <div>Looks like we dont have any events</div>}
             </div>
@@ -21,4 +26,9 @@ function MainView(props){
     </>)
 }
 
-export default connect(null, {})(MainView)
+export default connect(state => ({
+    userId: state.login.userId
+}), {
+    getEventsList,
+    addEvent
+})(MainView)
