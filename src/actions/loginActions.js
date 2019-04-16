@@ -45,10 +45,11 @@ export const login = credentials => dispatch => {
     return axios
         .post('auth/login/', credentials)
         .then(res => {
-            window.localStorage.setItem('friendsToken', res.data.payload)
+            console.log(res.data)
+            window.localStorage.setItem('friendsToken', res.data.token)
             dispatch({
                 type: LOGGING_IN_SUCCESS,
-                payload: null
+                payload: res.data
             })
         })
         .catch(err => {

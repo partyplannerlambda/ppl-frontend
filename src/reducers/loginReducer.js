@@ -10,8 +10,10 @@ const initialState = {
     loginError: null,
     isLoggedIn: false,
     registerSuccesful: false,
-    isRegistering: false,
-    registerError: null
+    isRegistering: false, // these seem redundant but serve different purpose
+    registerError: null,
+    username: null,
+    userId: null
 }
 
 const caseRegisterUser = state => ({
@@ -53,10 +55,13 @@ const caseLoggingIn = state => ({
 })
 
 const caseLoggingInSuccess = (state, action) => {
-    let token = action.payload;
+    console.log(action)
+    let {token, username, userId} = action.payload
     return ({
         ...state,
         token,
+        username,
+        userId,
         isLoggingIn: false,
         loginError: null,
         isLoggedIn: true

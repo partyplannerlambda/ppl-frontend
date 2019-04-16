@@ -1,6 +1,6 @@
 import React from 'react';
 // import styled from 'styled-components';
-// import {connect} from 'react-redux';
+import {connect} from 'react-redux';
 
 import Header from '../components/Header'
 import EventForm from '../components/EventForm'
@@ -8,8 +8,8 @@ import EventCard from '../components/EventCard'
 
 import data from '../dummy-data.js'
 
-export default function(props){
-
+function MainView(props){
+    
     return (<>
         <Header />
         <div>
@@ -20,3 +20,5 @@ export default function(props){
         </div>
     </>)
 }
+
+export default connect(null, {})(MainView)
