@@ -1,5 +1,7 @@
 import React from 'react';
 
 export default function(props){
-    return <div>This is Where our mood stuff goes</div>
+    console.log(props)
+    let imgUrl = "/imgs/moodModal.jpg"
+    return <img src={`${imgUrl}`} />
 }
