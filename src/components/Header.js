@@ -1,19 +1,22 @@
 import React from 'react';
 import styled from 'styled-components';
-import {NavLink} from 'react-router-dom';
+import {NavLink, withRouter} from 'react-router-dom';
 
 import {colors} from '../utils/themeColors'
 
-export default function(props){
+export default withRouter(function(props){
+    const pushHome = event => {
+        console.log(props.history.push("/"))
+    }
     return(
         <Header>
-            <h1>Party Planner</h1>
+            <h1 onClick={pushHome}>Party Planner</h1>
             <nav>
                 <NavLink exact to="/">Home</NavLink>
             </nav>
         </Header>
     )
-}
+})
 
 const Header = styled.header`
     width: 100%;
