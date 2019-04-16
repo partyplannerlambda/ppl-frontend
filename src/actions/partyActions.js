@@ -68,7 +68,11 @@ export const addEvent = (userId, event) => dispatch => {
         type: ADD_EVENT
     })
 
-    let newEvent = {userId, ...event}
+    let newEvent = {user_id: userId, ...event}
+    newEvent["user_id"] += 0;
+    newEvent["n_of_guests"] += 0;
+    newEvent["budget"] += 0;
+
     axios
         .post('/parties', newEvent)
         .then(res => {

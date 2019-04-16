@@ -14,7 +14,7 @@ export default withRouter(function(props){
 
     return(
         <EventCard onClick={!props.mainPage ? pushToPage : null}>
-            <h2>{event.name}</h2>
+            <h2>{event.party_name}</h2>
             <p><strong>Theme: </strong>{event.theme}</p>
             <p><strong>Guests: </strong>{event.n_of_guests}</p>
             <p><strong>Budget: </strong>{event.budget}</p>

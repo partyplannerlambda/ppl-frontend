@@ -19,7 +19,7 @@ function MainView(props){
     return (<>
         <Header />
         <div>
-            <EventForm userId={props.userId} addEvent={event => addEvent(props.userId, event)}/>
+            <EventForm userId={props.userId} addEvent={event => props.addEvent(props.userId, event)}/>
             <CardContainer>
                 {props.events ? props.events.map(event => <EventCard key={event.id} event={event} />) : <div>Looks like we dont have any events</div>}
             </CardContainer>

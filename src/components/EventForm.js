@@ -6,7 +6,7 @@ function resetFormState(){
     const date = new Date(Date.now())
     let monthString = date.getMonth() < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1;
     return ({
-        name: "",
+        party_name: "",
         theme: "",
         n_of_guests: 0,
         budget: 0,
@@ -30,6 +30,7 @@ export default function(props){
         console.group("Output from partyForm");
         console.log(JSON.stringify(formInputs));
         console.groupEnd();
+        props.addEvent(formInputs)
         setFormInputs(resetFormState())
     }
 
@@ -38,9 +39,9 @@ export default function(props){
             <div className="formCol">
                 <input
                     type="text"
-                    name="name"
+                    name="party_name"
                     placeholder="Event Name"
-                    value={formInputs.name}
+                    value={formInputs.party_name}
                     onChange={handleInput}
                 />
                 <input
