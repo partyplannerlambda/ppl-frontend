@@ -11,11 +11,12 @@ export const getEventsList = () => dispatch => {
     })
 
     axios
-        .get()
+        .get('/parties')
         .then(res => {
             console.log(res)
             dispatch({
-                type: GET_EVENTS_LIST_SUCCESS
+                type: GET_EVENTS_LIST_SUCCESS,
+                payload: res.data
             })
         })
         .catch(err => {
@@ -31,6 +32,7 @@ export const GET_EVENT = "GET_EVENT";
 export const GET_EVENT_SUCCESS = "GET_EVENT_SUCCESS";
 export const GET_EVENT_FAILURE = "GET_EVENT_FAILURE";
 
+// this event is not an event DOM object. its a 'party'
 export const getEvent = event => dispatch => {
     dispatch({
         type: GET_EVENT
@@ -57,13 +59,14 @@ export const ADD_EVENT = "ADD_EVENT";
 export const ADD_EVENT_SUCCESS = "ADD_EVENT_SUCCESS";
 export const ADD_EVENT_FAILURE = "ADD_EVENT_FAILURE";
 
+// this event is not an event DOM object. its a 'party'
 export const addEvent = event => dispatch => {
     dispatch({
         type: ADD_EVENT
     })
 
     axios
-        .post(, event)
+        .post('/parties', event)
         .then(res => {
             console.log(res)
             dispatch({
@@ -83,6 +86,7 @@ export const UPDATE_EVENT = "UPDATE_EVENT";
 export const UPDATE_EVENT_SUCCESS = "UPDATE_EVENT_SUCCESS";
 export const UPDATE_EVENT_FAILURE = "UPDATE_EVENT_FAILURE";
 
+// this event is not an event DOM object. its a 'party'
 export const updateEvent = event => dispatch => {
     dispatch({
         type: UPDATE_EVENT
@@ -109,6 +113,7 @@ export const DELETE_EVENT = "DELETE_EVENT";
 export const DELETE_EVENT_SUCCESS = "DELETE_EVENT_SUCCESS";
 export const DELETE_EVENT_FAILURE = "DELETE_EVENT_FAILURE";
 
+// this event is not an event DOM object. its a 'party'
 export const deleteEvent = event => dispatch => {
     dispatch({
         type: DELETE_EVENT
