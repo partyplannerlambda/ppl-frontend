@@ -1,4 +1,5 @@
 import axios from '../utils/axiosWithExtra';
+import {AUTH_TOKEN} from '../config.js'
 
 
 export const REGISTER_USER = "REGISTER_USER";
@@ -46,7 +47,7 @@ export const login = credentials => dispatch => {
         .post('auth/login/', credentials)
         .then(res => {
             console.log(res.data)
-            window.localStorage.setItem('friendsToken', res.data.token)
+            window.localStorage.setItem(AUTH_TOKEN, res.data.token)
             dispatch({
                 type: LOGGING_IN_SUCCESS,
                 payload: res.data

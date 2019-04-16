@@ -1,7 +1,7 @@
 export default [
   {
     id: 1,
-    name: "Centennial",
+    party_name: "Centennial",
     theme: "Century",
     n_of_guests: "50",
     budget: "10000",
@@ -9,7 +9,7 @@ export default [
   },
   {
     id: 2,
-    name: "BigFoot Brawl",
+    party_name: "BigFoot Brawl",
     theme: "swamp creature",
     n_of_guests: "20",
     budget: "3.50",
@@ -17,7 +17,7 @@ export default [
   },
   {
     id: 3,
-    name: "Yelling at random objects in the park",
+    party_name: "Yelling at random objects in the park",
     theme: "yelling",
     n_of_guests: "1",
     budget: 0,

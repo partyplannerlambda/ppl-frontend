@@ -16,6 +16,27 @@ const initialState = {
     userId: null
 }
 
+export default (state = initialState, action) => {
+    
+    switch(action.type){
+        case LOGGING_IN:
+            return caseLoggingIn(state)
+        case LOGGING_IN_SUCCESS:
+            return caseLoggingInSuccess(state, action)
+        case LOGGING_IN_FAILURE:
+            return caseLoggingInFailure(state, action)
+        case REGISTER_USER:
+            return caseRegisterUser(state)
+        case REGISTER_USER_SUCCESS:
+            return caseRegisterUserSuccess(state,action)
+        case REGISTER_USER_FAILURE:
+            return caseRegisterUserFailure(state,action)
+        default:
+            return state
+    }
+    
+}
+
 const caseRegisterUser = state => ({
     ...state,
     isRegistering: true,
@@ -55,8 +76,8 @@ const caseLoggingIn = state => ({
 })
 
 const caseLoggingInSuccess = (state, action) => {
-    console.log(action)
-    let {token, username, userId} = action.payload
+    console.log("Successful Login", action)
+    let {token, username, userID: userId} = action.payload
     return ({
         ...state,
         token,
@@ -77,25 +98,4 @@ const caseLoggingInFailure = (state, action) => {
         loginError: message,
         isLoggedIn: false
     })
-}
-
-export default (state = initialState, action) => {
-    
-    switch(action.type){
-        case LOGGING_IN:
-            return caseLoggingIn(state)
-        case LOGGING_IN_SUCCESS:
-            return caseLoggingInSuccess(state, action)
-        case LOGGING_IN_FAILURE:
-            return caseLoggingInFailure(state, action)
-        case REGISTER_USER:
-            return caseRegisterUser(state)
-        case REGISTER_USER_SUCCESS:
-            return caseRegisterUserSuccess(state,action)
-        case REGISTER_USER_FAILURE:
-            return caseRegisterUserFailure(state,action)
-        default:
-            return state
-    }
-    
 }
