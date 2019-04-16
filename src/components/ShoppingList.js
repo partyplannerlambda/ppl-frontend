@@ -21,7 +21,7 @@ export default function(props){
                 <input type="text" name="shoppingInput" value={shoppingInput} onChange={handleShoppingInput}/>
                 <button type="submit">Add Item</button>
             </form>
-            {shopping ? shopping.map(item => <div>{item.text}</div>) : <p>Add an item to your list!</p>}
+            {shopping ? shopping.map(item => <div key={item.id}>{item.text}</div>) : <p>Add an item to your list!</p>}
 
         </div>
     )

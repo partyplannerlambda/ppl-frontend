@@ -21,7 +21,7 @@ export default function(props){
                 <input type="text" name="todoInput" value={todoInput} onChange={handleTodoInput}/>
                 <button type="submit">Add Todo</button>
             </form>
-            {todos ? todos.map(item => <div>{item.text}</div>) : <p>Add a ToDo!</p>}
+            {todos ? todos.map(item => <div key={item.id}>{item.text}</div>) : <p>Add a ToDo!</p>}
 
         </div>
     )
