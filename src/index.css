@@ -33,6 +33,29 @@ img {
   height: auto;
 }
 
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+input:focus, button:focus {
+  outline: none;
+}
+
+input, button {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid lightgray;
+}
+
+input[type="date"] {
+  padding: 9px;
+}
+
 body {
   margin: 0;
   padding: 0;
