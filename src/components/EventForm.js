@@ -1,17 +1,20 @@
 import React, {useState} from 'react';
 
-export default function(props){
-    const [formInputs, setFormInputs] = useState(() => {
-        const date = new Date(Date.now())
-        let monthString = date.getMonth() < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1;
-        return ({
-            name: "",
-            theme: "",
-            n_of_guests: 0,
-            budget: 0,
-            date: `${date.getFullYear()}-${monthString}-${date.getDate()}`
-        })
+// maybe this could be memoized inside the component?
+function resetFormState(){
+    const date = new Date(Date.now())
+    let monthString = date.getMonth() < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1;
+    return ({
+        name: "",
+        theme: "",
+        n_of_guests: 0,
+        budget: 0,
+        date: `${date.getFullYear()}-${monthString}-${date.getDate()}`
     })
+}
+
+export default function(props){
+    const [formInputs, setFormInputs] = useState(resetFormState())
 
     const handleInput = event => {
         setFormInputs({
@@ -23,8 +26,9 @@ export default function(props){
     const handleSubmit = event => {
         event.preventDefault();
         console.group("Output from partyForm");
-        console.log(formInputs);
+        console.log(JSON.stringify(formInputs));
         console.groupEnd();
+        setFormInputs(resetFormState())
     }
 
     return(

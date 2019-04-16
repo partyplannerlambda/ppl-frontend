@@ -4,6 +4,9 @@ import React from 'react';
 
 import Header from '../components/Header'
 import EventForm from '../components/EventForm'
+import EventCard from '../components/EventCard'
+
+import data from '../dummy-data.js'
 
 export default function(props){
 
@@ -11,6 +14,9 @@ export default function(props){
         <Header />
         <div>
             <EventForm />
+            <div>
+                {data ? data.map(event => <EventCard key={event.id} event={event} />) : <div>Looks like we dont have any events</div>}
+            </div>
         </div>
     </>)
 }
