@@ -1,5 +1,12 @@
+
+
 const initialState = {
-    events: []
+    events: [],
+    gettingEventsList: false,
+    gettingEvent: false,
+    addingEvent: false,
+    updatingEvent: false,
+    deletingEvent: false
 }
 
 export default (state = initialState, action) => {
