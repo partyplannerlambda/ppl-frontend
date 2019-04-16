@@ -25,11 +25,12 @@ export default withRouter(function(props){
 
 const EventCard = styled.div`
     display: inline-block;
+    width: 80%;
     min-width: 300px;
     padding: 15px;
-    
+
     margin: 15px auto;
     border-radius: 5px;
     border: 1px solid black;
-    box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.3)
+    box-shadow: 2px 2px 2px 0.5px rgba(0,0,0,0.3)
 `
