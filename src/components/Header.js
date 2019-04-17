@@ -13,7 +13,7 @@ export default withRouter(function(props){
             <h1 onClick={pushHome}>Party Planner</h1>
             <nav>
                 <NavLink exact to="/">Home</NavLink>
-                <NavLink to="/login">Login</Navlink>
+                <NavLink to="/login">Login</NavLink>
             </nav>
         </Header>
     )
