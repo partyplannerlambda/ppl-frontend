@@ -34,13 +34,13 @@ export const GET_EVENT_SUCCESS = "GET_EVENT_SUCCESS";
 export const GET_EVENT_FAILURE = "GET_EVENT_FAILURE";
 
 // this event is not an event DOM object. its a 'party'
-export const getEvent = event => dispatch => {
+export const getEvent = id => dispatch => {
     dispatch({
         type: GET_EVENT
     })
 
     axios
-        .get(`/parties/${event.id}`)
+        .get(`/parties/${id}`)
         .then(res => {
             console.log(res)
             dispatch({
@@ -69,9 +69,9 @@ export const addEvent = (userId, event) => dispatch => {
     })
 
     let newEvent = {user_id: userId, ...event}
-    newEvent["user_id"] += 0;
-    newEvent["n_of_guests"] += 0;
-    newEvent["budget"] += 0;
+    newEvent["user_id"] -= 0;
+    newEvent["n_of_guests"] -= 0;
+    newEvent["budget"] -= 0;
 
     axios
         .post('/parties', newEvent)
