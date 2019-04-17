@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 
 import Header from '../components/Header'
 import EventForm from '../components/EventForm'
-import EventCard from '../components/EventCard'
+import PartyCard from '../components/PartyCard'
 
 import {
     getEventsList,
@@ -21,7 +21,7 @@ function MainView(props){
         <div>
             <EventForm userId={props.userId} addEvent={event => props.addEvent(props.userId, event)}/>
             <CardContainer>
-                {props.events ? props.events.map(event => <EventCard key={event.id} event={event} />) : <div>Looks like we dont have any events</div>}
+                {props.events ? props.events.map(party => <PartyCard key={party.id} party={party} />) : <div>Looks like we dont have any events</div>}
             </CardContainer>
         </div>
     </>)

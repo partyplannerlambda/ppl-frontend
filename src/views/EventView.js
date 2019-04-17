@@ -3,7 +3,7 @@ import React, {useEffect} from 'react';
 import {connect} from 'react-redux';
 
 import Header from '../components/Header'
-import EventCard from '../components/EventCard'
+import PartyCard from '../components/PartyCard'
 import EventMoodModal from '../components/EventMoodModal'
 import TodoList from '../components/TodoList'
 import ShoppingList from '../components/ShoppingList'
@@ -18,24 +18,24 @@ function EventView(props){
         props.getEvent(props.match.params.id)
     }, [])
 
-    if (!props.event){
-        return <div><Header />Loading Event Info</div>
+    if (!props.party){
+        return <div><Header />Loading Party Info</div>
     }
 
-    console.log(props.event)
+    console.log(props.party)
     return (<> 
         <Header />
-        <EventCard eventPage event={props.event}/>
-        <EventMoodModal event={props.event}/>
+        <PartyCard eventPage party={props.party}/>
+        <EventMoodModal party={props.party}/>
         <div className="listContainer">
-            <TodoList event={props.event} />
-            <ShoppingList event={props.event} />
+            <TodoList party={props.party} />
+            <ShoppingList party={props.party} />
         </div>
     </>)
 }
 
 export default connect(state => ({
-    event: state.events.activeEvent
+    party: state.events.activeEvent
 }), {
     getEvent
 })(EventView)

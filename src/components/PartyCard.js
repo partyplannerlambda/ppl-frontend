@@ -1,24 +1,27 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
 
-export default withRouter(function(props) {
-  const { event } = props;
+import {updateEvent, deleteEvent} from '../actions/partyActions'
+
+const PartyCard = withRouter(function(props) {
+  const { party } = props;
   const [isEditing, setIsEditing] = useState(false);
   const [editInputs, setEditInputs] = useState({
     party_name: "",
     theme: "",
     n_of_guests: "",
     budget: "",
-    date: `${event ? event.date : ""}`
-  })
+    date: `${party ? party.date : ""}`
+  });
 
-  if (!event) {
-    return <div>Loading Event Details</div>;
+  if (!party) {
+    return <div>Loading Party Details</div>;
   }
 
   const pushToPage = () => {
-    props.history.push(`parties/${event.id}`);
+    props.history.push(`parties/${party.id}`);
   };
 
   const toggleEdit = event => {
@@ -30,26 +33,47 @@ export default withRouter(function(props) {
     setEditInputs({
       ...editInputs,
       [event.target.name]: event.target.value
-    })
+    });
   };
 
   const submitUpdate = event => {
     event.preventDefault();
-    console.log("we submitted")
-  }
+
+    let validInputs = () => {
+      let validKeys = Object.keys(editInputs).filter(key => !!editInputs[key])
+      let newObj = {};
+      for (let key of validKeys){
+        newObj[key] = editInputs[key]
+      }
+      return newObj;
+    }
+
+    let updatedEvent = {
+      ...party,
+      ...validInputs()
+    }
+    console.log("we submitted", updatedEvent);
+    
+    props.updateEvent(updatedEvent)
+
+  };
 
   return (
-    <EventCard onClick={!props.eventPage ? pushToPage : null}>
-      <form onSubmit={isEditing? submitUpdate : ()=>{}}>
+    <PartyCardContainer onClick={!props.eventPage ? pushToPage : null}>
+      <form onSubmit={isEditing ? submitUpdate : () => {}}>
         {/* Name */}
-        {isEditing ? (<input
+        {isEditing ? (
+          <input
             className="partyName"
             name="party_name"
             type="text"
             onChange={handleInput}
-            placeholder={event.party_name}
+            placeholder={party.party_name}
             value={editInputs.party_name}
-          />) :(<h2>{event.party_name}</h2>)}
+          />
+        ) : (
+          <h2>{party.party_name}</h2>
+        )}
 
         {/* Theme */}
         {isEditing ? (
@@ -57,13 +81,13 @@ export default withRouter(function(props) {
             type="text"
             name="theme"
             onChange={handleInput}
-            placeholder={`Theme: ${event.theme}`}
+            placeholder={`Theme: ${party.theme}`}
             value={editInputs.theme}
           />
         ) : (
           <p>
             <strong>Theme: </strong>
-            {event.theme}
+            {party.theme}
           </p>
         )}
 
@@ -73,13 +97,13 @@ export default withRouter(function(props) {
             type="number"
             name="n_of_guests"
             onChange={handleInput}
-            placeholder={`Guests: ${event.n_of_guests}`}
+            placeholder={`Guests: ${party.n_of_guests}`}
             value={editInputs.n_of_guests}
           />
         ) : (
           <p>
             <strong>Guests: </strong>
-            {event.n_of_guests}
+            {party.n_of_guests}
           </p>
         )}
 
@@ -89,13 +113,13 @@ export default withRouter(function(props) {
             type="number"
             name="budget"
             onChange={handleInput}
-            placeholder={`Budget: ${event.budget}`}
+            placeholder={`Budget: ${party.budget}`}
             value={editInputs.budget}
           />
         ) : (
           <p>
             <strong>Budget: </strong>
-            {event.budget}
+            {party.budget}
           </p>
         )}
 
@@ -110,19 +134,25 @@ export default withRouter(function(props) {
         ) : (
           <p>
             <strong>Date: </strong>
-            {event.date}
+            {party.date}
           </p>
         )}
 
-        {props.eventPage && !isEditing && <button onClick={toggleEdit}>Edit</button>}
-        {props.eventPage && isEditing && <button onClick={toggleEdit}>Cancel</button>}
+        {props.eventPage && !isEditing && (
+          <button onClick={toggleEdit}>Edit</button>
+        )}
+        {props.eventPage && isEditing && (
+          <button onClick={toggleEdit}>Cancel</button>
+        )}
         {props.eventPage && isEditing && <button type="submit">Submit</button>}
       </form>
-    </EventCard>
+    </PartyCardContainer>
   );
 });
 
-const EventCard = styled.div`
+export default connect(null, {updateEvent, deleteEvent})(PartyCard)
+
+const PartyCardContainer = styled.div`
   display: inline-block;
   width: 80%;
   min-width: 300px;
@@ -133,12 +163,11 @@ const EventCard = styled.div`
   border: 1px solid black;
   box-shadow: 2px 2px 2px 0.5px rgba(0, 0, 0, 0.3);
 
-  form input{
-      display: block;
+  form input {
+    display: block;
 
-      &.partyName {
-          font-size: 2.4rem;
-      }
+    &.partyName {
+      font-size: 2.4rem;
+    }
   }
 `;
-

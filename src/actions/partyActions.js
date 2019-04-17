@@ -112,7 +112,7 @@ export const updateEvent = event => dispatch => {
             })
         })
         .catch(err => {
-            console.log(err)
+            console.log(err.message)
             dispatch({
                 type: UPDATE_EVENT_FAILURE,
                 payload: err.message
