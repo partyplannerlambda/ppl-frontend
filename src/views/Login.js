@@ -48,6 +48,7 @@ export function LoginView(props){
 
         setError("")
         let {confirm, ...rest} = cred;
+        console.log(rest)
         props.doRegister(rest)
     }
 
@@ -61,12 +62,14 @@ export function LoginView(props){
                 <input
                     name="username"
                     value={cred.username}
-                    onChange={handleInput} 
+                    placeholder="Username"
+                    onChange={handleInput}
                 />
                 <input
                     name="password"
                     type="text" // change to password
                     value={cred.password}
+                    placeholder="Password"
                     onChange={handleInput} 
                 />
                 {register && (
@@ -74,6 +77,7 @@ export function LoginView(props){
                         name="confirm"
                         type="text" // change to password
                         value={cred.confirm}
+                        placeholder="Confirm Password"
                         onChange={handleInput} 
                     />
                 )}

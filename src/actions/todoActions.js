@@ -5,22 +5,22 @@ export const GET_TODOS_LIST = "GET_TODOS_LIST";
 export const GET_TODOS_LIST_SUCCESS = "GET_TODOS_LIST_SUCCESS";
 export const GET_TODOS_LIST_FAILURE = "GET_TODOS_LIST_FAILURE";
 
-export const getTodosList = eventId => dispatch => {
+export const getTodosList = partyId => dispatch => {
     dispatch({
         type: GET_TODOS_LIST
     })
 
     axios
-        .get(`parties/${eventId}/todos`)
+        .get(`parties/${partyId}/todo`)
         .then(res => {
-            console.log(res)
+            console.log("todoActions: ", res)
             dispatch({
                 type: GET_TODOS_LIST_SUCCESS,
                 payload: res.data
             })
         })
         .catch(err => {
-            console.log(err)
+            console.log("todoActions: ", err)
             dispatch({
                 type: GET_TODOS_LIST_FAILURE
             })
@@ -32,21 +32,21 @@ export const GET_TODO = "GET_TODO";
 export const GET_TODO_SUCCESS = "GET_TODO_SUCCESS";
 export const GET_TODO_FAILURE = "GET_TODO_FAILURE";
 
-export const getTodo = todo => dispatch => {
+export const getTodo = (partyId, todoId) => dispatch => {
     dispatch({
         type: GET_TODO
     })
 
     axios
-        .get()
+        .get(`parties/${partyId}/todo/${todoId}`)
         .then(res => {
-            console.log(res)
+            console.log("todoActions: ", res)
             dispatch({
                 type: GET_TODO_SUCCESS
             })
         })
         .catch(err => {
-            console.log(err)
+            console.log("todoActions: ", err)
             dispatch({
                 type: GET_TODO_FAILURE
             })
@@ -58,24 +58,27 @@ export const ADD_TODO = "ADD_TODO";
 export const ADD_TODO_SUCCESS = "ADD_TODO_SUCCESS";
 export const ADD_TODO_FAILURE = "ADD_TODO_FAILURE";
 
-export const addTodo = (userId, todo) => dispatch => {
+export const addTodo = (partyId, todo) => dispatch => {
     dispatch({
         type: ADD_TODO
     })
 
-    let newTodo = {userId, ...todo}
+    let newTodo = {item: todo, party_id: partyId-0, completed: false}
+    console.log(newTodo)
     axios
-        .post('/parties', newTodo)
+        .post(`parties/${partyId}/todo`, newTodo)
         .then(res => {
-            console.log(res)
+            console.log("todoActions: ", res)
             dispatch({
-                type: ADD_TODO_SUCCESS
+                type: ADD_TODO_SUCCESS,
+                payload: res.data
             })
         })
         .catch(err => {
-            console.log(err)
+            console.log("todoActions: ", err)
             dispatch({
-                type: ADD_TODO_FAILURE
+                type: ADD_TODO_FAILURE,
+                payload: err.message
             })
         })
 }
@@ -85,21 +88,21 @@ export const UPDATE_TODO = "UPDATE_TODO";
 export const UPDATE_TODO_SUCCESS = "UPDATE_TODO_SUCCESS";
 export const UPDATE_TODO_FAILURE = "UPDATE_TODO_FAILURE";
 
-export const updateTodo = todo => dispatch => {
+export const updateTodo = (partyId, todo) => dispatch => {
     dispatch({
         type: UPDATE_TODO
     })
 
     axios
-        .put(`parties/${todo.id}`, todo)
+        .put(`parties/${partyId}/todo/${todo.id}}`, todo)
         .then(res => {
-            console.log(res)
+            console.log("todoActions: ", res)
             dispatch({
                 type: UPDATE_TODO_SUCCESS
             })
         })
         .catch(err => {
-            console.log(err)
+            console.log("todoActions: ", err)
             dispatch({
                 type: UPDATE_TODO_FAILURE
             })
@@ -119,13 +122,13 @@ export const deleteTodo = todo => dispatch => {
     axios
         .post(`parties/${todo.id}`, todo)
         .then(res => {
-            console.log(res)
+            console.log("todoActions: ", res)
             dispatch({
                 type: DELETE_TODO_SUCCESS
             })
         })
         .catch(err => {
-            console.log(err)
+            console.log("todoActions: ", err)
             dispatch({
                 type: DELETE_TODO_FAILURE
             })

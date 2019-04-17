@@ -42,14 +42,18 @@ a:hover {
   text-decoration: underline;
 }
 
-input:focus, button:focus {
-  outline: none;
-}
-
 input, button {
   padding: 10px;
   border-radius: 5px;
   border: 1px solid lightgray;
+}
+
+button {
+  min-width: 215px;
+}
+
+input:focus, button:focus {
+  outline: none;
 }
 
 input[type="date"] {

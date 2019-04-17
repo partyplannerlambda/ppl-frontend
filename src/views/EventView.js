@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-// import styled from 'styled-components';
+import styled from 'styled-components';
 import {connect} from 'react-redux';
 import {Redirect} from 'react-router-dom'
 
@@ -30,12 +30,14 @@ function EventView(props){
     console.log(props.party)
     return (<> 
         <Header />
-        <PartyCard eventPage party={props.party}/>
-        <EventMoodModal party={props.party}/>
-        <div className="listContainer">
-            <TodoList party={props.party} />
-            <ShoppingList party={props.party} />
-        </div>
+        <EventViewBody>
+            <PartyCard eventPage party={props.party}/>
+            <EventMoodModal party={props.party}/>
+            <div className="listContainer">
+                <TodoList party={props.party} />
+                <ShoppingList party={props.party} />
+            </div>
+        </EventViewBody>
     </>)
 }
 
@@ -44,3 +46,12 @@ export default connect(state => ({
 }), {
     getEvent
 })(EventView)
+
+const EventViewBody = styled.div`
+    .listContainer {
+        display: flex;
+        justify-content: space-evenly;
+        padding: 50px 0;
+    }
+    padding-bottom: 50px;
+`

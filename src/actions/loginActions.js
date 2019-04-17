@@ -14,7 +14,7 @@ export const register = credentials => dispatch => {
     })
 
     return axios
-        .post('auth/register', credentials)
+        .post('auth/register/', credentials)
         .then(res => {
             dispatch({
                 type: REGISTER_USER_SUCCESS,

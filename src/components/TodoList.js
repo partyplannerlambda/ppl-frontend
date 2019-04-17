@@ -1,9 +1,15 @@
 import React, {useState, useEffect} from 'react';
+import {connect} from 'react-redux';
+import {getTodosList, addTodo} from '../actions/todoActions'
 
-import {todos} from '../dummy-data.js'
-
-export default function(props){
+function TodoList(props){
     const [todoInput, setTodoInput] = useState("")
+    const {party} = props
+
+    useEffect(()=>{
+        console.log("Getting Todo List")
+        props.getTodosList(party.id);
+    }, [])
 
     const handleTodoInput = event => {
         setTodoInput(event.target.value)
@@ -11,7 +17,8 @@ export default function(props){
 
     const handleSubmit = event => {
         event.preventDefault()
-        console.log(todoInput)
+        props.addTodo(party.id, todoInput)
+        setTodoInput("")
     }
 
     return (
@@ -21,8 +28,15 @@ export default function(props){
                 <input type="text" name="todoInput" value={todoInput} onChange={handleTodoInput}/>
                 <button type="submit">Add Todo</button>
             </form>
-            {todos ? todos.map(item => <div key={item.id}>{item.text}</div>) : <p>Add a ToDo!</p>}
+            {props.todosList ? props.todosList.map(item => <div key={item.id}>{item.text}</div>) : <p>Add a ToDo!</p>}
 
         </div>
     )
 }
+
+export default connect(state => ({
+    todosList: state.todos.todosList
+}), {
+    getTodosList,
+    addTodo
+})(TodoList)
