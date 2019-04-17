@@ -154,7 +154,7 @@ function caseUpdateEventSuccess(state, action){
         ...state,
         updatingEvent: false,
         error: null,
-        event: action.payload
+        activeEvent: action.payload
     }
 }
 
@@ -180,7 +180,7 @@ function caseDeleteEventSuccess(state, action){
         ...state,
         deletingEvent: false,
         error: null,
-        event: action.payload
+        activeEvent: "deleted"
     }
 }
 

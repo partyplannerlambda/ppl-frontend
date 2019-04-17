@@ -1,6 +1,7 @@
 import React, {useEffect} from 'react';
 // import styled from 'styled-components';
 import {connect} from 'react-redux';
+import {Redirect} from 'react-router-dom'
 
 import Header from '../components/Header'
 import PartyCard from '../components/PartyCard'
@@ -20,6 +21,10 @@ function EventView(props){
 
     if (!props.party){
         return <div><Header />Loading Party Info</div>
+    }
+
+    if (props.party === "deleted"){
+       return <Redirect to="/" />
     }
 
     console.log(props.party)

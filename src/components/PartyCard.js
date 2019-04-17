@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect} from "react";
 import styled from "styled-components";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 
-import {updateEvent, deleteEvent} from '../actions/partyActions'
+import { updateEvent, deleteEvent } from "../actions/partyActions";
 
 const PartyCard = withRouter(function(props) {
   const { party } = props;
@@ -16,6 +16,11 @@ const PartyCard = withRouter(function(props) {
     date: `${party ? party.date : ""}`
   });
 
+  //anytime party updates we flip out of editing mode
+  useEffect(()=>{
+    setEditInputs(false)
+  }, [party])
+
   if (!party) {
     return <div>Loading Party Details</div>;
   }
@@ -25,7 +30,9 @@ const PartyCard = withRouter(function(props) {
   };
 
   const toggleEdit = event => {
-    event.preventDefault();
+    if (event) {
+      event.preventDefault();
+    }
     setIsEditing(!isEditing);
   };
 
@@ -40,28 +47,31 @@ const PartyCard = withRouter(function(props) {
     event.preventDefault();
 
     let validInputs = () => {
-      let validKeys = Object.keys(editInputs).filter(key => !!editInputs[key])
+      let validKeys = Object.keys(editInputs).filter(key => !!editInputs[key]);
       let newObj = {};
-      for (let key of validKeys){
-        newObj[key] = editInputs[key]
+      for (let key of validKeys) {
+        newObj[key] = editInputs[key];
       }
       return newObj;
-    }
+    };
 
     let updatedEvent = {
       ...party,
       ...validInputs()
-    }
+    };
     console.log("we submitted", updatedEvent);
-    
-    props.updateEvent(updatedEvent)
 
+    props.updateEvent(updatedEvent);
   };
 
   const deleteEvent = event => {
     event.preventDefault();
-    
-  }
+    let ans = window.confirm("Are You Sure You Want To Delete This Party?");
+    if (ans){
+      props.deleteEvent(party)
+    }
+
+  };
 
   return (
     <PartyCardContainer onClick={!props.eventPage ? pushToPage : null}>
@@ -150,13 +160,18 @@ const PartyCard = withRouter(function(props) {
           <button onClick={toggleEdit}>Cancel</button>
         )}
         {props.eventPage && isEditing && <button type="submit">Submit</button>}
-        {props.eventPage && isEditing && <button className="warning" >Delete</button>}
+        {props.eventPage && isEditing && (
+          <button onClick={deleteEvent} className="warning">Delete</button>
+        )}
       </form>
     </PartyCardContainer>
   );
 });
 
-export default connect(null, {updateEvent, deleteEvent})(PartyCard)
+export default connect(
+  null,
+  { updateEvent, deleteEvent }
+)(PartyCard);
 
 const PartyCardContainer = styled.div`
   display: inline-block;
