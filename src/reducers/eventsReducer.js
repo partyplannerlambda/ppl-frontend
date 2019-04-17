@@ -55,6 +55,7 @@ export default (state = initialState, action) => {
             return caseDeleteEventSuccess(state, action)
         case DELETE_EVENT_FAILURE:
             return caseDeleteEventFailure(state, action)
+            
         default:
             return state
     }

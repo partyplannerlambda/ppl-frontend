@@ -22,7 +22,7 @@ export function LoginView(props){
         password: "",
         confirm: ""
     })
-    const [error, setError] = useState("")
+    const [localError, setError] = useState("")
 
     const register = props.match.url.includes('register')
 
@@ -55,9 +55,8 @@ export function LoginView(props){
         <Login onSubmit={event => register ? registerSubmit(event) : loginSubmit(event)}>
             <h1>{register ? "Register" : "Login"}</h1>
             {props.registerSuccesful && <div className="prompt">Login with your newly Created Credentials!</div>}
-            {props.loginError && <div className="errorBox">{props.loginError}</div>}
-            {props.registerError && <div className="errorBox">{props.registerError}</div>}
-            {error && <div className="errorBox">{error}</div>}
+            {props.error && <div className="error">{props.error}</div>}
+            {localError && <div className="error">{localError}</div>}
             <form>
                 <input
                     name="username"
@@ -106,11 +105,10 @@ const Login = styled.div`
 export default connect(state => ({
     token: state.login.token,
     isLoggingIn: state.login.isLoggingIn,
-    loginError: state.login.loginError,
+    error: state.login.error,
     isLoggedIn: state.login.isLoggedIn,
     registerSuccesful: state.login.registerSuccesful,
-    isRegistering: state.login.isRegistering,
-    registerError: state.login.registerError
+    isRegistering: state.login.isRegistering
 
 }), {
     doLogin,

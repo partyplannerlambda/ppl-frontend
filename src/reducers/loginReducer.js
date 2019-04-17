@@ -7,11 +7,10 @@ import {
 const initialState = {
     token: window.localStorage.getItem(AUTH_TOKEN) || null,
     isLoggingIn: false,
-    loginError: null,
+    error: null,
     isLoggedIn: false,
     registerSuccesful: false,
     isRegistering: false, // these seem redundant but serve different purpose
-    registerError: null,
     username: null,
     userId: null
 }
@@ -40,20 +39,20 @@ export default (state = initialState, action) => {
 const caseRegisterUser = state => ({
     ...state,
     isRegistering: true,
-    registerError: null
+    error: null
 })
 
 const caseRegisterUserSuccess = (state, action) => {
     if (!action.payload) {
         return ({
             ...state,
-            registerError: "something went wildly wrong"
+            error: "something went wildly wrong"
         })
     }
     return ({
         ...state,
         isRegistering: false,
-        registerError: null,
+        error: null,
         registerSuccesful: !!action.payload
     })
 }
@@ -63,7 +62,7 @@ const caseRegisterUserFailure = (state, action) => {
     return ({
         ...state,
         isRegistering: false,
-        registerError: errorMessage
+        error: errorMessage
     })
 }
 
@@ -71,7 +70,7 @@ const caseRegisterUserFailure = (state, action) => {
 const caseLoggingIn = state => ({
     ...state,
     isLoggingIn: true,
-    loginError: null,
+    error: null,
     isLoggedIn: false
 })
 
@@ -84,7 +83,7 @@ const caseLoggingInSuccess = (state, action) => {
         username,
         userId,
         isLoggingIn: false,
-        loginError: null,
+        error: null,
         isLoggedIn: true
     })
 }
@@ -95,7 +94,7 @@ const caseLoggingInFailure = (state, action) => {
         ...state,
         token: null,
         isLoggingIn: false,
-        loginError: message,
+        error: message,
         isLoggedIn: false
     })
 }

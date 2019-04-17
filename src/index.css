@@ -70,3 +70,11 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+.error {
+  border-radius: 5px;
+  border: 1px solid #CC4F47;
+  color: #CC4F47;
+  background: #FCD6CF;
+  padding: 10px;
+}
