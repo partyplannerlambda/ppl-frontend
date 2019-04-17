@@ -127,7 +127,7 @@ function caseAddEventSuccess(state, action){
         ...state,
         addingEvent: false,
         error: null,
-        event: action.payload
+        events: [...state.events, action.payload]
     }
 }
 

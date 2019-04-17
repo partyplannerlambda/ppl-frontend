@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 // import styled from 'styled-components';
 import {connect} from 'react-redux';
 
@@ -8,24 +8,34 @@ import EventMoodModal from '../components/EventMoodModal'
 import TodoList from '../components/TodoList'
 import ShoppingList from '../components/ShoppingList'
 
-import data from '../dummy-data';
+import {
+    getEvent
+} from '../actions/partyActions'
 
-export default function(props){
-    const [event, setEvent] = useState(undefined);
+function EventView(props){
 
     useEffect(()=>{
-        setEvent(data.find(event => event.id+"" === props.match.params.id+""))
+        props.getEvent(props.match.params.id)
     }, [])
 
-    console.log(event)
+    if (!props.event){
+        return <div><Header />Loading Event Info</div>
+    }
+
+    console.log(props.event)
     return (<> 
         <Header />
-        <EventCard mainPage event={event}/>
-        <EventMoodModal event={event}/>
+        <EventCard eventPage event={props.event}/>
+        <EventMoodModal event={props.event}/>
         <div className="listContainer">
-            <TodoList event={event} />
-            <ShoppingList event={event} />
+            <TodoList event={props.event} />
+            <ShoppingList event={props.event} />
         </div>
     </>)
 }
 
+export default connect(state => ({
+    event: state.events.activeEvent
+}), {
+    getEvent
+})(EventView)
