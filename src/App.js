@@ -12,8 +12,8 @@ export default function(props){
     <div className="App">
       <Route path="/login" component={Login}/>
       <Route path="/register" component={Login} register={true}/>
-      <PrivateRoute exact path="/" component={MainView} />
-      <PrivateRoute path="/parties/:id" component={EventView} />
+      <Route exact path="/" component={MainView} />
+      <Route path="/parties/:id" component={EventView} />
     </div>
   );
 }

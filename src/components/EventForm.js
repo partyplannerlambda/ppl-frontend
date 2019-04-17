@@ -8,8 +8,8 @@ function resetFormState(){
     return ({
         party_name: "",
         theme: "",
-        n_of_guests: 0,
-        budget: 0,
+        n_of_guests: "",
+        budget: "",
         date: `${date.getFullYear()}-${monthString}-${date.getDate()}`
     })
 }
@@ -57,14 +57,14 @@ export default function(props){
                     type="number"
                     name="n_of_guests"
                     placeholder="Number of Guests"
-                    value={formInputs.n_of_guests || undefined}
+                    value={formInputs.n_of_guests}
                     onChange={handleInput}
                 />
                 <input
                     type="number"
                     name="budget"
                     placeholder="Event Budget"
-                    value={formInputs.budget || undefined}
+                    value={formInputs.budget}
                     onChange={handleInput}
                 />
             </div>

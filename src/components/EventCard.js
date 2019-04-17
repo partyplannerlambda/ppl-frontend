@@ -5,6 +5,14 @@ import { withRouter } from "react-router-dom";
 export default withRouter(function(props) {
   const { event } = props;
   const [isEditing, setIsEditing] = useState(false);
+  const [editInputs, setEditInputs] = useState({
+    party_name: "",
+    theme: "",
+    n_of_guests: "",
+    budget: "",
+    date: `${event ? event.date : ""}`
+  })
+
   if (!event) {
     return <div>Loading Event Details</div>;
   }
@@ -19,26 +27,38 @@ export default withRouter(function(props) {
   };
 
   const handleInput = event => {
-    return;
+    setEditInputs({
+      ...editInputs,
+      [event.target.name]: event.target.value
+    })
   };
+
+  const submitUpdate = event => {
+    event.preventDefault();
+    console.log("we submitted")
+  }
 
   return (
     <EventCard onClick={!props.eventPage ? pushToPage : null}>
-      <form>
+      <form onSubmit={isEditing? submitUpdate : ()=>{}}>
         {/* Name */}
         {isEditing ? (<input
             className="partyName"
+            name="party_name"
             type="text"
             onChange={handleInput}
             placeholder={event.party_name}
+            value={editInputs.party_name}
           />) :(<h2>{event.party_name}</h2>)}
 
         {/* Theme */}
         {isEditing ? (
           <input
             type="text"
+            name="theme"
             onChange={handleInput}
             placeholder={`Theme: ${event.theme}`}
+            value={editInputs.theme}
           />
         ) : (
           <p>
@@ -51,8 +71,10 @@ export default withRouter(function(props) {
         {isEditing ? (
           <input
             type="number"
+            name="n_of_guests"
             onChange={handleInput}
             placeholder={`Guests: ${event.n_of_guests}`}
+            value={editInputs.n_of_guests}
           />
         ) : (
           <p>
@@ -65,8 +87,10 @@ export default withRouter(function(props) {
         {isEditing ? (
           <input
             type="number"
+            name="budget"
             onChange={handleInput}
             placeholder={`Budget: ${event.budget}`}
+            value={editInputs.budget}
           />
         ) : (
           <p>
@@ -79,8 +103,9 @@ export default withRouter(function(props) {
         {isEditing ? (
           <input
             type="date"
+            name="date"
             onChange={handleInput}
-            value={event.date}
+            value={editInputs.date}
           />
         ) : (
           <p>
@@ -91,7 +116,7 @@ export default withRouter(function(props) {
 
         {props.eventPage && !isEditing && <button onClick={toggleEdit}>Edit</button>}
         {props.eventPage && isEditing && <button onClick={toggleEdit}>Cancel</button>}
-        {props.eventPage && isEditing && <button onClick={toggleEdit}>Submit</button>}
+        {props.eventPage && isEditing && <button type="submit">Submit</button>}
       </form>
     </EventCard>
   );
