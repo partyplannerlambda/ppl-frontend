@@ -71,7 +71,7 @@ code {
     monospace;
 }
 
-.error {
+.warning {
   border-radius: 5px;
   border: 1px solid #CC4F47;
   color: #CC4F47;

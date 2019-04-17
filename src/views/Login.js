@@ -55,8 +55,8 @@ export function LoginView(props){
         <Login onSubmit={event => register ? registerSubmit(event) : loginSubmit(event)}>
             <h1>{register ? "Register" : "Login"}</h1>
             {props.registerSuccesful && <div className="prompt">Login with your newly Created Credentials!</div>}
-            {props.error && <div className="error">{props.error}</div>}
-            {localError && <div className="error">{localError}</div>}
+            {props.error && <div className="warning">{props.error}</div>}
+            {localError && <div className="warning">{localError}</div>}
             <form>
                 <input
                     name="username"

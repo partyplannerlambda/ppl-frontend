@@ -58,6 +58,11 @@ const PartyCard = withRouter(function(props) {
 
   };
 
+  const deleteEvent = event => {
+    event.preventDefault();
+    
+  }
+
   return (
     <PartyCardContainer onClick={!props.eventPage ? pushToPage : null}>
       <form onSubmit={isEditing ? submitUpdate : () => {}}>
@@ -145,6 +150,7 @@ const PartyCard = withRouter(function(props) {
           <button onClick={toggleEdit}>Cancel</button>
         )}
         {props.eventPage && isEditing && <button type="submit">Submit</button>}
+        {props.eventPage && isEditing && <button className="warning" >Delete</button>}
       </form>
     </PartyCardContainer>
   );
