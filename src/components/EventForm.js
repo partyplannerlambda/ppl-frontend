@@ -62,6 +62,7 @@ export default function(props){
                 />
                 <input
                     type="number"
+                    step="0.01"
                     name="budget"
                     placeholder="Event Budget"
                     value={formInputs.budget}

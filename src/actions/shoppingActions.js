@@ -104,7 +104,7 @@ export const updateItem = (item) => dispatch => {
             console.log(res)
             dispatch({
                 type: UPDATE_ITEM_SUCCESS,
-                payload: item.id
+                payload: item
             })
         })
         .catch(err => {

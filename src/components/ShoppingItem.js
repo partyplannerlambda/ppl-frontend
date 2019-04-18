@@ -11,6 +11,24 @@ function ShoppingItem(props){
 
     const toggleItem = event => {
         event.preventDefault();
+        
+        let price = undefined;
+
+        if (!item.purchased) {
+            price = window.prompt("how much did that cost?")
+
+            try {
+                price -= 0
+            } catch (err) {
+                window.alert("That was an invalid price")
+                return
+            }
+
+            props.updateItem({...item, purchased: !!item.purchased ? 0 : 1, price: price})
+            return
+
+        }
+
         props.updateItem({...item, purchased: !!item.purchased ? 0 : 1})
     }
 
@@ -21,9 +39,9 @@ function ShoppingItem(props){
 
     return (
         <ShoppingItemContainer className={!!item.purchased ? 'completed' : ""}>
-            <p>{item.item}</p>
+            <div><p>{item.item}</p> <span className="subtle">{!!item.purchased && `Bought for $${item.price}`}</span></div>
             <div className="actions">
-                <button onClick={toggleItem} className="shoppingAction complete">✓</button>
+                <button onClick={toggleItem} className="shoppingAction complete">🛒</button>
                 <button onClick={deleteItem} className="shoppingAction warning">X</button>
             </div>
         </ShoppingItemContainer>
@@ -39,6 +57,10 @@ const ShoppingItemContainer = styled.div`
     border: 1px solid lightgray;
     display: flex;
     justify-content: space-between;
+
+    .subtle {
+        color: gray;
+    }
 
     &.completed {
         background: lightgreen;

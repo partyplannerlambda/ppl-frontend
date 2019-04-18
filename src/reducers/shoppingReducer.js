@@ -146,9 +146,9 @@ function caseUpdateItemSuccess(state, action) {
     error: null,
     updatingItem: false,
     shoppingList: state.shoppingList.map(item =>
-      item.id !== action.payload
+      item.id !== action.payload.id
         ? item
-        : { ...item, purchased: (item.purchased >= 1 ? 0 : 1) }
+        : action.payload
     )
   };
 }

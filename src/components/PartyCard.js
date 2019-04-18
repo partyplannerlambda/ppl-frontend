@@ -152,6 +152,7 @@ const PartyCard = withRouter(function(props) {
           {isEditing ? (
             <input
               type="number"
+              step="0.01"
               name="budget"
               onChange={handleInput}
               placeholder={`Budget: ${party.budget}`}
@@ -159,7 +160,7 @@ const PartyCard = withRouter(function(props) {
             />
           ) : (
             <p>
-              <strong>Budget: </strong>
+              <strong>Budget: </strong>$
               {party.budget}
             </p>
           )}
@@ -202,7 +203,7 @@ const PartyCardContainer = styled.div`
     props.eventPage ? "none" : "2px 2px 2px 0.5px rgba(0, 0, 0, 0.3)"};
 
   strong {
-    font-size: 2rem;
+    font-size: inherit;
   }
 
   form {
