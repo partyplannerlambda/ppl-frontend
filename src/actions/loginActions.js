@@ -1,6 +1,15 @@
 import axios from '../utils/axiosWithExtra';
 import {AUTH_TOKEN} from '../config.js'
 
+export const LOGOUT = "LOGOUT";
+
+export const logout = () => {
+    window.localStorage.removeItem('partyplannertoken');
+    return ({
+        type: LOGOUT
+    })
+}
+
 
 export const REGISTER_USER = "REGISTER_USER";
 export const REGISTER_USER_SUCCESS = "REGISTER_USER_SUCCESS";

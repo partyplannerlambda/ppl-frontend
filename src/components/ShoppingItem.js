@@ -15,14 +15,17 @@ function ShoppingItem(props){
         let price = undefined;
 
         if (!item.purchased) {
-            price = window.prompt("how much did that cost?")
+            price = window.prompt("how much did that cost?") - 0;
 
-            try {
-                price -= 0
-            } catch (err) {
+            if (price === null) {
+                return
+            }
+            
+            if (Number.isNaN(price)){
                 window.alert("That was an invalid price")
                 return
             }
+            
 
             props.updateItem({...item, purchased: !!item.purchased ? 0 : 1, price: price})
             return
@@ -41,7 +44,7 @@ function ShoppingItem(props){
         <ShoppingItemContainer className={!!item.purchased ? 'completed' : ""}>
             <div><p>{item.item}</p> <span className="subtle">{!!item.purchased && `Bought for $${item.price}`}</span></div>
             <div className="actions">
-                <button onClick={toggleItem} className="shoppingAction complete">🛒</button>
+                <button onClick={toggleItem} className="shoppingAction complete"><span role="img" aria-label="buy">🛒</span></button>
                 <button onClick={deleteItem} className="shoppingAction warning">X</button>
             </div>
         </ShoppingItemContainer>

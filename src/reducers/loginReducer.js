@@ -2,7 +2,8 @@ import { AUTH_TOKEN } from '../config'
 
 import { 
     LOGGING_IN, LOGGING_IN_SUCCESS, LOGGING_IN_FAILURE,
-    REGISTER_USER, REGISTER_USER_SUCCESS, REGISTER_USER_FAILURE
+    REGISTER_USER, REGISTER_USER_SUCCESS, REGISTER_USER_FAILURE,
+    LOGOUT
 } from '../actions/loginActions.js'
 
 const initialState = {
@@ -19,6 +20,8 @@ const initialState = {
 export default (state = initialState, action) => {
     
     switch(action.type){
+        case LOGOUT:
+            return initialState
         case LOGGING_IN:
             return caseLoggingIn(state)
         case LOGGING_IN_SUCCESS:
@@ -60,6 +63,11 @@ const caseRegisterUserSuccess = (state, action) => {
 
 const caseRegisterUserFailure = (state, action) => {
     let errorMessage = action.payload.message
+
+    if (errorMessage.includes('500')){
+        errorMessage = "Username already exists"
+    }
+
     return ({
         ...state,
         isRegistering: false,

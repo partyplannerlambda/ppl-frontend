@@ -13,15 +13,17 @@ import {
 
 function MainView(props){
     useEffect(()=>{
-        props.getEventsList()
-    }, [props.isLoggedIn])
+        setTimeout(props.getEventsList, 600);
+    }, [])
 
     console.log(props.events)
 
     return (<>
         <Header />
+        <SubHeader><h2>Add A Party!</h2></SubHeader>
         <div>
             <EventForm userId={props.userId} addEvent={event => props.addEvent(props.userId, event)}/>
+            <SubHeader><h1>Your Parties</h1></SubHeader>
             <CardContainer>
                 {props.events ? props.events.map(party => <PartyCard key={party.id} party={party} />) : <div>Looks like we dont have any events</div>}
             </CardContainer>
@@ -31,12 +33,17 @@ function MainView(props){
 
 export default connect(state => ({
     userId: state.login.userId,
-    isLoggedIn: state.login.isLoggedIn,
     events: state.events.events
 }), {
     getEventsList,
     addEvent
 })(MainView)
+
+const SubHeader = styled.div`
+    width: 80%;
+    margin: 20px auto 0;
+    text-align: center;
+`
 
 const CardContainer = styled.div`
     display: flex;
