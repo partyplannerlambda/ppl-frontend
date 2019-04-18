@@ -42,13 +42,15 @@ export const getTodo = (partyId, todoId) => dispatch => {
         .then(res => {
             console.log("todoActions: ", res)
             dispatch({
-                type: GET_TODO_SUCCESS
+                type: GET_TODO_SUCCESS,
+                payload: res.data
             })
         })
         .catch(err => {
             console.log("todoActions: ", err)
             dispatch({
-                type: GET_TODO_FAILURE
+                type: GET_TODO_FAILURE,
+                payload: err.message
             })
         })
 }
@@ -88,17 +90,19 @@ export const UPDATE_TODO = "UPDATE_TODO";
 export const UPDATE_TODO_SUCCESS = "UPDATE_TODO_SUCCESS";
 export const UPDATE_TODO_FAILURE = "UPDATE_TODO_FAILURE";
 
-export const updateTodo = (partyId, todo) => dispatch => {
+export const updateTodo = (todo) => dispatch => {
     dispatch({
         type: UPDATE_TODO
     })
 
+    console.log('todo', todo)
     axios
-        .put(`parties/${partyId}/todo/${todo.id}}`, todo)
+        .put(`parties/${todo.party_id}/todo/${todo.id}`, todo)
         .then(res => {
-            console.log("todoActions: ", res)
+            console.log("todoActions update: ", res)
             dispatch({
-                type: UPDATE_TODO_SUCCESS
+                type: UPDATE_TODO_SUCCESS,
+                payload: todo.id
             })
         })
         .catch(err => {
@@ -120,11 +124,12 @@ export const deleteTodo = todo => dispatch => {
     })
 
     axios
-        .post(`parties/${todo.id}`, todo)
+        .delete(`parties/${todo.party_id}/todo/${todo.id}`)
         .then(res => {
-            console.log("todoActions: ", res)
+            console.log("todoActions Delete: ", res)
             dispatch({
-                type: DELETE_TODO_SUCCESS
+                type: DELETE_TODO_SUCCESS,
+                payload: todo.id
             })
         })
         .catch(err => {

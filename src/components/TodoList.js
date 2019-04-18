@@ -2,6 +2,8 @@ import React, {useState, useEffect} from 'react';
 import {connect} from 'react-redux';
 import {getTodosList, addTodo} from '../actions/todoActions'
 
+import TodoItem from './TodoItem.js'
+
 function TodoList(props){
     const [todoInput, setTodoInput] = useState("")
     const {party} = props
@@ -21,6 +23,7 @@ function TodoList(props){
         setTodoInput("")
     }
 
+    console.log("todo List", props.todosList)
     return (
         <div>
             <h3>TODO List:</h3>
@@ -28,7 +31,7 @@ function TodoList(props){
                 <input type="text" name="todoInput" value={todoInput} onChange={handleTodoInput}/>
                 <button type="submit">Add Todo</button>
             </form>
-            {props.todosList ? props.todosList.map(item => <div key={item.id}>{item.text}</div>) : <p>Add a ToDo!</p>}
+            {props.todosList.map(todo => <TodoItem key={todo.id} todo={todo} />)}
 
         </div>
     )
