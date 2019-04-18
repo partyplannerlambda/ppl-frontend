@@ -14,7 +14,7 @@ import {
 function MainView(props){
     useEffect(()=>{
         props.getEventsList()
-    }, [])
+    }, [props.isLoggedIn])
 
     console.log(props.events)
 
@@ -31,6 +31,7 @@ function MainView(props){
 
 export default connect(state => ({
     userId: state.login.userId,
+    isLoggedIn: state.login.isLoggedIn,
     events: state.events.events
 }), {
     getEventsList,

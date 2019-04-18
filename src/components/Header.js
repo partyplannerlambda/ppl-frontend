@@ -6,13 +6,22 @@ import {colors} from '../utils/themeColors'
 
 export default withRouter(function(props){
     const pushHome = event => {
-        console.log(props.history.push("/"))
+        event.preventDefault();
+        props.history.push("/")
     }
+
+    const logout = event => {
+        event.preventDefault();
+        window.localStorage.removeItem('partyplannertoken')
+        props.history.push("/login")
+    }
+
     return(
         <Header>
             <h1 onClick={pushHome}>Party Planner</h1>
             <nav>
                 <NavLink exact to="/">Home</NavLink>
+                <a href="/" onClick={logout}>Logout</a>
             </nav>
         </Header>
     )
@@ -38,10 +47,11 @@ const Header = styled.header`
         height: 100%;
 
         a {
-            display: block;
+            display: inline-block;
             font-size: 2rem;
             height: 100%;
             transition: .25s;
+            margin-left: 20px;
 
             &:hover {
                 text-decoration: none;

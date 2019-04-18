@@ -91,6 +91,9 @@ const caseLoggingInSuccess = (state, action) => {
 
 const caseLoggingInFailure = (state, action) => {
     let message = action.payload.message
+    if (message.includes('401')){
+        message = "Username or Password does not match our records"
+    }
     return ({
         ...state,
         token: null,

@@ -148,7 +148,7 @@ function caseUpdateItemSuccess(state, action) {
     shoppingList: state.shoppingList.map(item =>
       item.id !== action.payload
         ? item
-        : { ...item, completed: !item.completed }
+        : { ...item, purchased: (item.purchased >= 1 ? 0 : 1) }
     )
   };
 }
