@@ -92,10 +92,14 @@ const EventForm = styled.form`
 
     .formCol {
         input {
-            width: 100%;
+            width: 99%;
+            margin: 2px;
         }
         button {
-            width: 100%;
+            width: 99%;
+            background: lightskyblue;
+            border: 1px solid lightskyblue;
+            margin: 2px;
         }
     }
 
@@ -104,6 +108,14 @@ const EventForm = styled.form`
 
         .formCol {
             display: flex;
+        }
+    }
+
+    @media (max-width: 500px) {
+        flex-direction: column;
+
+        .formCol {
+            flex-direction: column;
         }
     }
 

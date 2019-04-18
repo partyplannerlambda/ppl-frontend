@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import styled from 'styled-components';
-import { getItemsList, addItem } from "../actions/shoppingActions";
+import { getItemsList, addItem, clearShoppingList } from "../actions/shoppingActions";
 
 import ShoppingItem from "./ShoppingItem.js";
 
@@ -13,7 +13,8 @@ function ShoppingList(props) {
 
   useEffect(() => {
     props.getItemsList(party.id);
-  }, [party]);
+    return props.clearShoppingList
+  }, []);
 
   useEffect(() => {
     console.log("updating budget");
@@ -70,7 +71,8 @@ export default connect(
   }),
   {
     getItemsList,
-    addItem
+    addItem,
+    clearShoppingList
   }
 )(ShoppingList);
 

@@ -1,5 +1,13 @@
 import axios from '../utils/axiosWithExtra';
 
+
+export const CLEAR_TODOS = "CLEAR_TODOS"
+export const clearTodos = () => {
+    return {
+        type: CLEAR_TODOS
+    }
+}
+
 // GET_TODOS_LIST, GET_TODOS_LIST_SUCCESS, GET_TODOS_LIST_FAILURE
 export const GET_TODOS_LIST = "GET_TODOS_LIST";
 export const GET_TODOS_LIST_SUCCESS = "GET_TODOS_LIST_SUCCESS";
@@ -13,7 +21,6 @@ export const getTodosList = partyId => dispatch => {
     axios
         .get(`parties/${partyId}/todo`)
         .then(res => {
-            console.log("todoActions: ", res)
             dispatch({
                 type: GET_TODOS_LIST_SUCCESS,
                 // filter out todo items that dont belong to active party

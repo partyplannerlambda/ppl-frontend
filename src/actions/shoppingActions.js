@@ -1,6 +1,15 @@
 import axios from '../utils/axiosWithExtra';
 import {AXIOS_CONFIG} from '../config'
 
+
+export const CLEAR_SHOPPING_LIST = "CLEAR_SHOPPING_LIST"
+export const clearShoppingList = () => {
+    console.log("Clearing Shopping List")
+    return {
+        type: CLEAR_SHOPPING_LIST
+    }
+}
+
 // GET_ITEMS_LIST, GET_ITEMS_LIST_SUCCESS, GET_ITEMS_LIST_FAILURE
 export const GET_ITEMS_LIST = "GET_ITEMS_LIST";
 export const GET_ITEMS_LIST_SUCCESS = "GET_ITEMS_LIST_SUCCESS";

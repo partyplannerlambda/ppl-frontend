@@ -13,7 +13,8 @@ import {
   UPDATE_TODO_FAILURE,
   DELETE_TODO,
   DELETE_TODO_SUCCESS,
-  DELETE_TODO_FAILURE
+  DELETE_TODO_FAILURE,
+  CLEAR_TODOS
 } from "../actions/todoActions.js";
 
 const initialState = {
@@ -28,6 +29,9 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
+    case CLEAR_TODOS: 
+      return initialState
+  
     case GET_TODOS_LIST:
       return caseGetTodosList(state, action);
     case GET_TODOS_LIST_SUCCESS:

@@ -2,6 +2,7 @@ import React, {useEffect} from 'react';
 import styled from 'styled-components';
 import {connect} from 'react-redux';
 import {Redirect} from 'react-router-dom'
+import Loader from 'react-loader-spinner'
 
 import Header from '../components/Header'
 import PartyCard from '../components/PartyCard'
@@ -10,17 +11,18 @@ import TodoList from '../components/TodoList'
 import ShoppingList from '../components/ShoppingList'
 
 import {
-    getEvent
+    getEvent, clearActiveEvent
 } from '../actions/partyActions'
 
 function EventView(props){
 
     useEffect(()=>{
         props.getEvent(props.match.params.id)
+        return props.clearActiveEvent
     }, [])
 
     if (!props.party){
-        return <div><Header />Loading Party Info</div>
+        return <div className="center"><Header /><Loader type="Ball-Triangle" color="#0f0f0f" height={80} width={80} /></div>
     }
 
     if (props.party === "deleted"){
@@ -43,7 +45,8 @@ function EventView(props){
 export default connect(state => ({
     party: state.events.activeEvent
 }), {
-    getEvent
+    getEvent,
+    clearActiveEvent
 })(EventView)
 
 const EventViewBody = styled.div`

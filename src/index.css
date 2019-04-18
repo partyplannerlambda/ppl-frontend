@@ -82,3 +82,11 @@ code {
   background: #FCD6CF;
   padding: 10px;
 }
+
+.center {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}

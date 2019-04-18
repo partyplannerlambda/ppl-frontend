@@ -13,7 +13,8 @@ import {
   UPDATE_ITEM_FAILURE,
   DELETE_ITEM,
   DELETE_ITEM_SUCCESS,
-  DELETE_ITEM_FAILURE
+  DELETE_ITEM_FAILURE,
+  CLEAR_SHOPPING_LIST
 } from "../actions/shoppingActions.js";
 
 const initialState = {
@@ -28,6 +29,9 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
+    case CLEAR_SHOPPING_LIST:
+      return initialState
+      
     case GET_ITEMS_LIST:
       return caseGetItemsList(state, action);
     case GET_ITEMS_LIST_SUCCESS:

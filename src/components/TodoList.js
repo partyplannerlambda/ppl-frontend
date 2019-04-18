@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {connect} from 'react-redux';
-import {getTodosList, addTodo} from '../actions/todoActions'
+import {getTodosList, addTodo, clearTodos} from '../actions/todoActions'
 
 import TodoItem from './TodoItem.js'
 
@@ -10,7 +10,8 @@ function TodoList(props){
 
     useEffect(()=>{
         props.getTodosList(party.id);
-    }, [party])
+        return props.clearTodos
+    }, [])
 
     const handleTodoInput = event => {
         setTodoInput(event.target.value)
@@ -40,5 +41,6 @@ export default connect(state => ({
     party: state.events.activeEvent
 }), {
     getTodosList,
-    addTodo
+    addTodo,
+    clearTodos
 })(TodoList)

@@ -1,5 +1,13 @@
 import axios from '../utils/axiosWithExtra';
 
+
+export const CLEAR_ACTIVE_EVENT = "CLEAR_ACTIVE_EVENT"
+export const clearActiveEvent = () => {
+    return {
+        type: CLEAR_ACTIVE_EVENT
+    }
+}
+
 // GET_EVENTS_LIST, GET_EVENTS_LIST_SUCCESS, GET_EVENTS_LIST_FAILURE
 export const GET_EVENTS_LIST = "GET_EVENTS_LIST";
 export const GET_EVENTS_LIST_SUCCESS = "GET_EVENTS_LIST_SUCCESS";
