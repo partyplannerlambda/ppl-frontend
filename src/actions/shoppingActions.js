@@ -1,4 +1,5 @@
 import axios from '../utils/axiosWithExtra';
+import {AXIOS_CONFIG} from '../config'
 
 // GET_ITEMS_LIST, GET_ITEMS_LIST_SUCCESS, GET_ITEMS_LIST_FAILURE
 export const GET_ITEMS_LIST = "GET_ITEMS_LIST";
@@ -65,8 +66,11 @@ export const addItem = (eventId, item) => dispatch => {
     dispatch({
         type: ADD_ITEM
     })
+
+    let newItem = {party_id: eventId, item: item}
+    
     axios
-        .post(`/parties/${eventId}/shopping`, item)
+        .post(`/parties/${eventId}/shopping`, newItem)
         .then(res => {
             console.log(res)
             dispatch({
@@ -88,18 +92,19 @@ export const UPDATE_ITEM = "UPDATE_ITEM";
 export const UPDATE_ITEM_SUCCESS = "UPDATE_ITEM_SUCCESS";
 export const UPDATE_ITEM_FAILURE = "UPDATE_ITEM_FAILURE";
 
-export const updateItem = (eventId, item) => dispatch => {
+export const updateItem = (item) => dispatch => {
     dispatch({
         type: UPDATE_ITEM
     })
 
+    console.log("sending to update", item)
     axios
-        .put(`/parties/${eventId}/shopping/${item.id}`, item)
+        .put(`/parties/${item.party_id}/shopping/${item.id}`, item, AXIOS_CONFIG)
         .then(res => {
             console.log(res)
             dispatch({
                 type: UPDATE_ITEM_SUCCESS,
-                payload: res.data
+                payload: item.id
             })
         })
         .catch(err => {
@@ -116,18 +121,18 @@ export const DELETE_ITEM = "DELETE_ITEM";
 export const DELETE_ITEM_SUCCESS = "DELETE_ITEM_SUCCESS";
 export const DELETE_ITEM_FAILURE = "DELETE_ITEM_FAILURE";
 
-export const deleteItem = (eventId, item) => dispatch => {
+export const deleteItem = (item) => dispatch => {
     dispatch({
         type: DELETE_ITEM
     })
 
     axios
-        .delete(`/parties/${eventId}/shopping/${item.id}`)
+        .delete(`/parties/${item.party_id}/shopping/${item.id}`)
         .then(res => {
             console.log(res)
             dispatch({
                 type: DELETE_ITEM_SUCCESS,
-                payload: res.data
+                payload: item.id
             })
         })
         .catch(err => {

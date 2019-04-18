@@ -193,6 +193,7 @@ const PartyCardContainer = styled.div`
   width: 80%;
   min-width: 300px;
   ${props => (props.eventPage ? "width: 100%;" : "")}
+  ${props => (props.eventPage ? `color: ${colors.darkMain}` : "")}
 
   margin: 0 auto;
   border-radius: 5px;
@@ -210,8 +211,8 @@ const PartyCardContainer = styled.div`
       justify-content: space-between;
       align-items: center;
       padding: 15px;
-      background: ${colors.main};
-      color: white;
+      background: ${props => (props.eventPage ? 'none' : colors.main)};
+      color: ${props => (props.eventPage ? colors.darkMain : "white")};
 
       button {
         background: none;
