@@ -16,6 +16,8 @@ function MainView(props){
         props.getEventsList()
     }, [])
 
+    console.log(props.events)
+
     return (<>
         <Header />
         <div>

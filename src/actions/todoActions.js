@@ -16,7 +16,8 @@ export const getTodosList = partyId => dispatch => {
             console.log("todoActions: ", res)
             dispatch({
                 type: GET_TODOS_LIST_SUCCESS,
-                payload: res.data
+                // filter out todo items that dont belong to active party
+                payload: res.data.filter(item => item.party_id === partyId)
             })
         })
         .catch(err => {
