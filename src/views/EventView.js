@@ -50,6 +50,9 @@ export default connect(state => ({
 })(EventView)
 
 const EventViewBody = styled.div`
+    max-width: 1200px;
+    margin: 0 auto;
+    
     .listContainer {
         display: flex;
         justify-content: space-evenly;

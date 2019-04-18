@@ -23,11 +23,12 @@ function MainView(props){
     return (<>
         <Header />
         <SubHeader><h2>Add A Party!</h2></SubHeader>
+        {props.isAddingEvent && <Loader type="Ball-Triangle" color="#0f0f0f" height={80} width={80} />}
         <div>
             <EventForm userId={props.userId} addEvent={event => props.addEvent(props.userId, event)}/>
             <SubHeader><h1>Your Parties</h1></SubHeader>
             <CardContainer>
-                {props.isLoadingEvents && <Loader type="Ball-Triangle" color="#000000" height={80} width={80} />}
+                {props.isLoadingEvents && <Loader type="Ball-Triangle" color="#0f0f0f" height={80} width={80} />}
                 {!!props.events ? props.events.map(party => <PartyCard key={party.id} party={party} />) : <div>No Parties?</div>}
             </CardContainer>
         </div>
@@ -37,7 +38,8 @@ function MainView(props){
 export default connect(state => ({
     userId: state.login.userId,
     events: state.events.events,
-    isLoadingEvents: state.events.gettingEventsList
+    isLoadingEvents: state.events.gettingEventsList,
+    isAddingEvent: state.events.addingEvent
 }), {
     getEventsList,
     addEvent

@@ -15,7 +15,7 @@ const PartyCard = withRouter(function(props) {
     theme: "",
     n_of_guests: "",
     budget: "",
-    date: `${party ? party.date : ""}`
+    date: `${!!party ? party.date : ""}`
   });
 
   //anytime party updates we flip out of editing mode
@@ -64,6 +64,7 @@ const PartyCard = withRouter(function(props) {
     console.log("we submitted", updatedEvent);
 
     props.updateEvent(updatedEvent);
+    setIsEditing(!isEditing)
   };
 
   const deleteEvent = event => {
@@ -81,19 +82,25 @@ const PartyCard = withRouter(function(props) {
     >
       <form onSubmit={isEditing ? submitUpdate : () => {}}>
         <div className="cardHeader">
-          {/* Name */}
-          {isEditing ? (
-            <input
-              className="partyName"
-              name="party_name"
-              type="text"
-              onChange={handleInput}
-              placeholder={party.party_name}
-              value={editInputs.party_name}
-            />
-          ) : (
-            <h2>{party.party_name}</h2>
-          )}
+          <div className="title">
+            {/* Name */}
+            {isEditing ? (
+              <input
+                className="partyName"
+                name="party_name"
+                type="text"
+                onChange={handleInput}
+                placeholder={party.party_name}
+                value={editInputs.party_name}
+              />
+            ) : (
+              <h2>{party.party_name}</h2>
+            )}
+
+            {props.eventPage && !isEditing && (
+              <button onClick={toggleEdit}>Edit</button>
+            )}
+          </div>
 
           {/* Date */}
           {isEditing ? (
@@ -108,10 +115,6 @@ const PartyCard = withRouter(function(props) {
               <strong>Date: </strong>
               {party.date}
             </p>
-          )}
-
-          {props.eventPage && !isEditing && (
-            <button onClick={toggleEdit}>Edit</button>
           )}
         </div>
 
@@ -160,8 +163,7 @@ const PartyCard = withRouter(function(props) {
             />
           ) : (
             <p>
-              <strong>Budget: </strong>$
-              {party.budget}
+              <strong>Budget: </strong>${party.budget}
             </p>
           )}
         </div>
@@ -171,7 +173,7 @@ const PartyCard = withRouter(function(props) {
             <button onClick={toggleEdit}>Cancel</button>
           )}
           {props.eventPage && isEditing && (
-            <button type="submit">Submit</button>
+            <button type="submit" className="submit">Submit</button>
           )}
           {props.eventPage && isEditing && (
             <button onClick={deleteEvent} className="warning">
@@ -212,8 +214,14 @@ const PartyCardContainer = styled.div`
       justify-content: space-between;
       align-items: center;
       padding: 15px;
-      background: ${props => (props.eventPage ? 'none' : colors.main)};
+      background: ${props => (props.eventPage ? "none" : colors.main)};
       color: ${props => (props.eventPage ? colors.darkMain : "white")};
+
+      .title {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
 
       button {
         background: none;
@@ -223,7 +231,7 @@ const PartyCardContainer = styled.div`
         border: none;
 
         &:hover {
-          color: white;
+          color: ${colors.darkMain};
         }
       }
 
@@ -240,6 +248,13 @@ const PartyCardContainer = styled.div`
       p {
         font-size: 2em;
       }
+    
+    }
+
+    .submit {
+      color: darkblue;
+      background: lightskyblue;
+      border-color: darkblue;
     }
 
     input {

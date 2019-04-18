@@ -112,7 +112,7 @@ export const updateEvent = event => dispatch => {
         .then(res => {
             dispatch({
                 type: UPDATE_EVENT_SUCCESS,
-                payload: res.data
+                payload: event
             })
         })
         .catch(err => {
