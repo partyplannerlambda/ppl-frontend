@@ -1,9 +1,11 @@
-import React, { useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 
 import { updateEvent, deleteEvent } from "../actions/partyActions";
+
+import { colors } from "../utils/themeColors";
 
 const PartyCard = withRouter(function(props) {
   const { party } = props;
@@ -17,9 +19,9 @@ const PartyCard = withRouter(function(props) {
   });
 
   //anytime party updates we flip out of editing mode
-  useEffect(()=>{
-    setEditInputs(false)
-  }, [party])
+  useEffect(() => {
+    setEditInputs(false);
+  }, [party]);
 
   if (!party) {
     return <div>Loading Party Details</div>;
@@ -67,102 +69,115 @@ const PartyCard = withRouter(function(props) {
   const deleteEvent = event => {
     event.preventDefault();
     let ans = window.confirm("Are You Sure You Want To Delete This Party?");
-    if (ans){
-      props.deleteEvent(party)
+    if (ans) {
+      props.deleteEvent(party);
     }
-
   };
 
   return (
-    <PartyCardContainer onClick={!props.eventPage ? pushToPage : null}>
+    <PartyCardContainer
+      eventPage={props.eventPage || false}
+      onClick={!props.eventPage ? pushToPage : null}
+    >
       <form onSubmit={isEditing ? submitUpdate : () => {}}>
-        {/* Name */}
-        {isEditing ? (
-          <input
-            className="partyName"
-            name="party_name"
-            type="text"
-            onChange={handleInput}
-            placeholder={party.party_name}
-            value={editInputs.party_name}
-          />
-        ) : (
-          <h2>{party.party_name}</h2>
-        )}
+        <div className="cardHeader">
+          {/* Name */}
+          {isEditing ? (
+            <input
+              className="partyName"
+              name="party_name"
+              type="text"
+              onChange={handleInput}
+              placeholder={party.party_name}
+              value={editInputs.party_name}
+            />
+          ) : (
+            <h2>{party.party_name}</h2>
+          )}
 
-        {/* Theme */}
-        {isEditing ? (
-          <input
-            type="text"
-            name="theme"
-            onChange={handleInput}
-            placeholder={`Theme: ${party.theme}`}
-            value={editInputs.theme}
-          />
-        ) : (
-          <p>
-            <strong>Theme: </strong>
-            {party.theme}
-          </p>
-        )}
+          {/* Date */}
+          {isEditing ? (
+            <input
+              type="date"
+              name="date"
+              onChange={handleInput}
+              value={editInputs.date}
+            />
+          ) : (
+            <p>
+              <strong>Date: </strong>
+              {party.date}
+            </p>
+          )}
 
-        {/* Number of Guests */}
-        {isEditing ? (
-          <input
-            type="number"
-            name="n_of_guests"
-            onChange={handleInput}
-            placeholder={`Guests: ${party.n_of_guests}`}
-            value={editInputs.n_of_guests}
-          />
-        ) : (
-          <p>
-            <strong>Guests: </strong>
-            {party.n_of_guests}
-          </p>
-        )}
+          {props.eventPage && !isEditing && (
+            <button onClick={toggleEdit}>Edit</button>
+          )}
+        </div>
 
-        {/* Budget */}
-        {isEditing ? (
-          <input
-            type="number"
-            name="budget"
-            onChange={handleInput}
-            placeholder={`Budget: ${party.budget}`}
-            value={editInputs.budget}
-          />
-        ) : (
-          <p>
-            <strong>Budget: </strong>
-            {party.budget}
-          </p>
-        )}
+        <div className="cardInfo">
+          {/* Theme */}
+          {isEditing ? (
+            <input
+              type="text"
+              name="theme"
+              onChange={handleInput}
+              placeholder={`Theme: ${party.theme}`}
+              value={editInputs.theme}
+            />
+          ) : (
+            <p>
+              <strong>Theme: </strong>
+              {party.theme}
+            </p>
+          )}
 
-        {/* Date */}
-        {isEditing ? (
-          <input
-            type="date"
-            name="date"
-            onChange={handleInput}
-            value={editInputs.date}
-          />
-        ) : (
-          <p>
-            <strong>Date: </strong>
-            {party.date}
-          </p>
-        )}
+          {/* Number of Guests */}
+          {isEditing ? (
+            <input
+              type="number"
+              name="n_of_guests"
+              onChange={handleInput}
+              placeholder={`Guests: ${party.n_of_guests}`}
+              value={editInputs.n_of_guests}
+            />
+          ) : (
+            <p>
+              <strong>Guests: </strong>
+              {party.n_of_guests}
+            </p>
+          )}
 
-        {props.eventPage && !isEditing && (
-          <button onClick={toggleEdit}>Edit</button>
-        )}
-        {props.eventPage && isEditing && (
-          <button onClick={toggleEdit}>Cancel</button>
-        )}
-        {props.eventPage && isEditing && <button type="submit">Submit</button>}
-        {props.eventPage && isEditing && (
-          <button onClick={deleteEvent} className="warning">Delete</button>
-        )}
+          {/* Budget */}
+          {isEditing ? (
+            <input
+              type="number"
+              name="budget"
+              onChange={handleInput}
+              placeholder={`Budget: ${party.budget}`}
+              value={editInputs.budget}
+            />
+          ) : (
+            <p>
+              <strong>Budget: </strong>
+              {party.budget}
+            </p>
+          )}
+        </div>
+
+        <div className="cardInfo">
+          {props.eventPage && isEditing && (
+            <button onClick={toggleEdit}>Cancel</button>
+          )}
+          {props.eventPage && isEditing && (
+            <button type="submit">Submit</button>
+          )}
+          {props.eventPage && isEditing && (
+            <button onClick={deleteEvent} className="warning">
+              Delete
+            </button>
+          )}
+        </div>
       </form>
     </PartyCardContainer>
   );
@@ -177,18 +192,60 @@ const PartyCardContainer = styled.div`
   display: inline-block;
   width: 80%;
   min-width: 300px;
-  padding: 15px;
+  ${props => (props.eventPage ? "width: 100%;" : "")}
 
-  margin: 15px auto;
+  margin: 0 auto;
   border-radius: 5px;
-  border: 1px solid black;
-  box-shadow: 2px 2px 2px 0.5px rgba(0, 0, 0, 0.3);
+  border: ${props => (props.eventPage ? "none" : "1px solid black")};
+  box-shadow: ${props =>
+    props.eventPage ? "none" : "2px 2px 2px 0.5px rgba(0, 0, 0, 0.3)"};
 
-  form input {
-    display: block;
+  strong {
+    font-size: 2rem;
+  }
 
-    &.partyName {
-      font-size: 2.4rem;
+  form {
+    .cardHeader {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px;
+      background: ${colors.main};
+      color: white;
+
+      button {
+        background: none;
+        color: ${colors.lightMain}
+        width: unset;
+        min-width: unset;
+        border: none;
+
+        &:hover {
+          color: white;
+        }
+      }
+
+      p {
+        font-size: 1.6rem;
+      }
+    }
+
+    .cardInfo {
+      display: flex;
+      justify-content: space-between;
+      padding: 15px;
+
+      p {
+        font-size: 2em;
+      }
+    }
+
+    input {
+      display: block;
+
+      &.partyName {
+        font-size: 2.4rem;
+      }
     }
   }
 `;

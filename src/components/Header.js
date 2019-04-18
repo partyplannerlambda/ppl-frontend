@@ -23,7 +23,7 @@ const Header = styled.header`
     min-height: 100px;
     padding: 0 50px;
 
-    background: ${colors.main};
+    background: ${colors.darkMain};
     color: white;
 
     display: flex;
