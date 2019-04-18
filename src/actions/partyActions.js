@@ -13,14 +13,13 @@ export const getEventsList = () => dispatch => {
     axios
         .get('/parties')
         .then(res => {
-            console.log(res)
             dispatch({
                 type: GET_EVENTS_LIST_SUCCESS,
                 payload: res.data
             })
         })
         .catch(err => {
-            console.log(err)
+            console.log("Error in partyActions: ", err)
             dispatch({
                 type: GET_EVENTS_LIST_FAILURE,
                 payload: err.message
@@ -42,14 +41,13 @@ export const getEvent = id => dispatch => {
     axios
         .get(`/parties/${id}`)
         .then(res => {
-            console.log(res)
             dispatch({
                 type: GET_EVENT_SUCCESS,
                 payload: res.data
             })
         })
         .catch(err => {
-            console.log(err)
+            console.log("Error in partyActions: ", err)
             dispatch({
                 type: GET_EVENT_FAILURE,
                 payload: err.message
@@ -76,14 +74,13 @@ export const addEvent = (userId, event) => dispatch => {
     axios
         .post('/parties', newEvent)
         .then(res => {
-            console.log(res)
             dispatch({
                 type: ADD_EVENT_SUCCESS,
                 payload: res.data
             })
         })
         .catch(err => {
-            console.log(err)
+            console.log("Error in partyActions: ", err)
             dispatch({
                 type: ADD_EVENT_FAILURE,
                 payload: err.message
@@ -105,7 +102,6 @@ export const updateEvent = event => dispatch => {
     axios
         .put(`parties/${event.id}`, event)
         .then(res => {
-            console.log(res)
             dispatch({
                 type: UPDATE_EVENT_SUCCESS,
                 payload: res.data
@@ -134,14 +130,13 @@ export const deleteEvent = event => dispatch => {
     axios
         .delete(`parties/${event.id}`)
         .then(res => {
-            console.log(res)
             dispatch({
                 type: DELETE_EVENT_SUCCESS,
                 payload: res.data
             })
         })
         .catch(err => {
-            console.log(err)
+            console.log("Error in partyActions: ", err)
             dispatch({
                 type: DELETE_EVENT_FAILURE,
                 payload: err.message

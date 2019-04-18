@@ -9,9 +9,8 @@ function TodoList(props){
     const {party} = props
 
     useEffect(()=>{
-        console.log("Getting Todo List")
         props.getTodosList(party.id);
-    }, [])
+    }, [party])
 
     const handleTodoInput = event => {
         setTodoInput(event.target.value)
@@ -22,8 +21,7 @@ function TodoList(props){
         props.addTodo(party.id, todoInput)
         setTodoInput("")
     }
-
-    console.log("todo List", props.todosList)
+    
     return (
         <div>
             <h3>TODO List:</h3>
@@ -38,7 +36,8 @@ function TodoList(props){
 }
 
 export default connect(state => ({
-    todosList: state.todos.todosList
+    todosList: state.todos.todosList,
+    party: state.events.activeEvent
 }), {
     getTodosList,
     addTodo

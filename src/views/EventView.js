@@ -27,15 +27,14 @@ function EventView(props){
        return <Redirect to="/" />
     }
 
-    console.log(props.party)
     return (<> 
         <Header />
         <EventViewBody>
             <PartyCard eventPage party={props.party}/>
             <EventMoodModal party={props.party}/>
             <div className="listContainer">
-                <TodoList party={props.party} />
-                <ShoppingList party={props.party} />
+                <TodoList />
+                <ShoppingList />
             </div>
         </EventViewBody>
     </>)
