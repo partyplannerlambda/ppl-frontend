@@ -3,7 +3,8 @@ import {
     GET_EVENT, GET_EVENT_SUCCESS, GET_EVENT_FAILURE,
     ADD_EVENT, ADD_EVENT_SUCCESS, ADD_EVENT_FAILURE,
     UPDATE_EVENT, UPDATE_EVENT_SUCCESS, UPDATE_EVENT_FAILURE,
-    DELETE_EVENT, DELETE_EVENT_SUCCESS, DELETE_EVENT_FAILURE
+    DELETE_EVENT, DELETE_EVENT_SUCCESS, DELETE_EVENT_FAILURE,
+    CLEAR_ACTIVE_EVENT
 } from '../actions/partyActions'
 
 const initialState = {
@@ -20,6 +21,8 @@ const initialState = {
 export default (state = initialState, action) => {
     
     switch(action.type){
+        case CLEAR_ACTIVE_EVENT:
+            return initialState
        
         case GET_EVENTS_LIST:
             return caseGetEventList(state, action)
@@ -55,6 +58,7 @@ export default (state = initialState, action) => {
             return caseDeleteEventSuccess(state, action)
         case DELETE_EVENT_FAILURE:
             return caseDeleteEventFailure(state, action)
+            
         default:
             return state
     }
@@ -127,7 +131,7 @@ function caseAddEventSuccess(state, action){
         ...state,
         addingEvent: false,
         error: null,
-        events: [...state.events, action.payload]
+        events: [action.payload, ...state.events]
     }
 }
 
@@ -153,7 +157,7 @@ function caseUpdateEventSuccess(state, action){
         ...state,
         updatingEvent: false,
         error: null,
-        event: action.payload
+        activeEvent: action.payload
     }
 }
 
@@ -179,7 +183,7 @@ function caseDeleteEventSuccess(state, action){
         ...state,
         deletingEvent: false,
         error: null,
-        event: action.payload
+        activeEvent: "deleted"
     }
 }
 

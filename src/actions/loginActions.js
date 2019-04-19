@@ -1,6 +1,15 @@
 import axios from '../utils/axiosWithExtra';
 import {AUTH_TOKEN} from '../config.js'
 
+export const LOGOUT = "LOGOUT";
+
+export const logout = () => {
+    window.localStorage.removeItem('partyplannertoken');
+    return ({
+        type: LOGOUT
+    })
+}
+
 
 export const REGISTER_USER = "REGISTER_USER";
 export const REGISTER_USER_SUCCESS = "REGISTER_USER_SUCCESS";
@@ -14,7 +23,7 @@ export const register = credentials => dispatch => {
     })
 
     return axios
-        .post('auth/register', credentials)
+        .post('auth/register/', credentials)
         .then(res => {
             dispatch({
                 type: REGISTER_USER_SUCCESS,
@@ -46,7 +55,6 @@ export const login = credentials => dispatch => {
     return axios
         .post('auth/login/', credentials)
         .then(res => {
-            console.log(res.data)
             window.localStorage.setItem(AUTH_TOKEN, res.data.token)
             dispatch({
                 type: LOGGING_IN_SUCCESS,
@@ -54,7 +62,7 @@ export const login = credentials => dispatch => {
             })
         })
         .catch(err => {
-            console.log("caught err in action", err)
+            console.log("caught err logging in", err)
             dispatch({
                 type: LOGGING_IN_FAILURE,
                 payload: err

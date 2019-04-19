@@ -1,17 +1,18 @@
 import { AUTH_TOKEN } from '../config'
+
 import { 
     LOGGING_IN, LOGGING_IN_SUCCESS, LOGGING_IN_FAILURE,
-    REGISTER_USER, REGISTER_USER_SUCCESS, REGISTER_USER_FAILURE
+    REGISTER_USER, REGISTER_USER_SUCCESS, REGISTER_USER_FAILURE,
+    LOGOUT
 } from '../actions/loginActions.js'
 
 const initialState = {
-    token: window.localStorage.getItem(AUTH_TOKEN) || null,
+    token: null,
     isLoggingIn: false,
-    loginError: null,
+    error: null,
     isLoggedIn: false,
     registerSuccesful: false,
     isRegistering: false, // these seem redundant but serve different purpose
-    registerError: null,
     username: null,
     userId: null
 }
@@ -19,6 +20,8 @@ const initialState = {
 export default (state = initialState, action) => {
     
     switch(action.type){
+        case LOGOUT:
+            return initialState
         case LOGGING_IN:
             return caseLoggingIn(state)
         case LOGGING_IN_SUCCESS:
@@ -40,30 +43,35 @@ export default (state = initialState, action) => {
 const caseRegisterUser = state => ({
     ...state,
     isRegistering: true,
-    registerError: null
+    error: null
 })
 
 const caseRegisterUserSuccess = (state, action) => {
     if (!action.payload) {
         return ({
             ...state,
-            registerError: "something went wildly wrong"
+            error: "something went wildly wrong"
         })
     }
     return ({
         ...state,
         isRegistering: false,
-        registerError: null,
+        error: null,
         registerSuccesful: !!action.payload
     })
 }
 
 const caseRegisterUserFailure = (state, action) => {
     let errorMessage = action.payload.message
+
+    if (errorMessage.includes('500')){
+        errorMessage = "Username already exists"
+    }
+
     return ({
         ...state,
         isRegistering: false,
-        registerError: errorMessage
+        error: errorMessage
     })
 }
 
@@ -71,31 +79,35 @@ const caseRegisterUserFailure = (state, action) => {
 const caseLoggingIn = state => ({
     ...state,
     isLoggingIn: true,
-    loginError: null,
+    error: null,
     isLoggedIn: false
 })
 
 const caseLoggingInSuccess = (state, action) => {
     console.log("Successful Login", action)
     let {token, username, userID: userId} = action.payload
+    console.log(token);
     return ({
         ...state,
         token,
         username,
         userId,
         isLoggingIn: false,
-        loginError: null,
+        error: null,
         isLoggedIn: true
     })
 }
 
 const caseLoggingInFailure = (state, action) => {
     let message = action.payload.message
+    if (message.includes('401')){
+        message = "Username or Password does not match our records"
+    }
     return ({
         ...state,
         token: null,
         isLoggingIn: false,
-        loginError: message,
+        error: message,
         isLoggedIn: false
     })
 }

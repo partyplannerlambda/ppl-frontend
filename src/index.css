@@ -42,14 +42,18 @@ a:hover {
   text-decoration: underline;
 }
 
-input:focus, button:focus {
-  outline: none;
-}
-
 input, button {
   padding: 10px;
   border-radius: 5px;
   border: 1px solid lightgray;
+}
+
+button {
+  min-width: 215px;
+}
+
+input:focus, button:focus {
+  outline: none;
 }
 
 input[type="date"] {
@@ -69,4 +73,20 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+.warning {
+  border-radius: 5px;
+  border: 1px solid #CC4F47;
+  color: #CC4F47;
+  background: #FCD6CF;
+  padding: 10px;
+}
+
+.center {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }

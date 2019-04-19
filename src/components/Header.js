@@ -1,29 +1,42 @@
 import React from 'react';
 import styled from 'styled-components';
 import {NavLink, withRouter} from 'react-router-dom';
+import {connect} from 'react-redux'
 
+import {logout} from '../actions/loginActions'
 import {colors} from '../utils/themeColors'
 
-export default withRouter(function(props){
+const Header = withRouter(function(props){
     const pushHome = event => {
-        console.log(props.history.push("/"))
+        event.preventDefault();
+        props.history.push("/")
     }
+
+    const logout = event => {
+        event.preventDefault();
+        props.logout();
+        props.history.push("/login")
+    }
+
     return(
-        <Header>
+        <HeaderContainer>
             <h1 onClick={pushHome}>Party Planner</h1>
             <nav>
                 <NavLink exact to="/">Home</NavLink>
+                <a href="/logout" onClick={logout}>Logout</a>
             </nav>
-        </Header>
+        </HeaderContainer>
     )
 })
 
-const Header = styled.header`
+export default connect(null, {logout})(Header)
+
+const HeaderContainer = styled.header`
     width: 100%;
     min-height: 100px;
     padding: 0 50px;
 
-    background: ${colors.main};
+    background: ${colors.darkMain};
     color: white;
 
     display: flex;
@@ -38,10 +51,11 @@ const Header = styled.header`
         height: 100%;
 
         a {
-            display: block;
+            display: inline-block;
             font-size: 2rem;
             height: 100%;
             transition: .25s;
+            margin-left: 20px;
 
             &:hover {
                 text-decoration: none;

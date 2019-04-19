@@ -1,10 +1,11 @@
 import React, {useEffect} from 'react';
-import styled from 'styled-components'
+import styled from 'styled-components';
+import Loader from 'react-loader-spinner';
 import {connect} from 'react-redux';
 
 import Header from '../components/Header'
 import EventForm from '../components/EventForm'
-import EventCard from '../components/EventCard'
+import PartyCard from '../components/PartyCard'
 
 import {
     getEventsList,
@@ -12,28 +13,51 @@ import {
 } from '../actions/partyActions'
 
 function MainView(props){
+    
     useEffect(()=>{
-        props.getEventsList()
+        props.getEventsList(props.token);
     }, [])
+
+    console.log(props.events)
 
     return (<>
         <Header />
+        <Container>
+        <SubHeader><h2>Add A Party!</h2></SubHeader>
+        {props.isAddingEvent && <Loader type="Ball-Triangle" color="#0f0f0f" height={80} width={80} />}
         <div>
             <EventForm userId={props.userId} addEvent={event => props.addEvent(props.userId, event)}/>
+            <SubHeader><h1>Your Parties</h1></SubHeader>
             <CardContainer>
-                {props.events ? props.events.map(event => <EventCard key={event.id} event={event} />) : <div>Looks like we dont have any events</div>}
+                {props.isLoadingEvents && <Loader type="Ball-Triangle" color="#0f0f0f" height={80} width={80} />}
+                {!!props.events ? props.events.map(party => <PartyCard key={party.id} party={party} />) : <div>No Parties?</div>}
             </CardContainer>
         </div>
+        </Container>
     </>)
 }
 
 export default connect(state => ({
     userId: state.login.userId,
-    events: state.events.events
+    token: state.login.token,
+    events: state.events.events,
+    isLoadingEvents: state.events.gettingEventsList,
+    isAddingEvent: state.events.addingEvent
 }), {
     getEventsList,
     addEvent
 })(MainView)
+
+const Container = styled.div`
+    max-width: 1200px;
+    margin: 0 auto;
+`
+
+const SubHeader = styled.div`
+    width: 80%;
+    margin: 20px auto 0;
+    text-align: center;
+`
 
 const CardContainer = styled.div`
     display: flex;

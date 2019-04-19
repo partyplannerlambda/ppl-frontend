@@ -8,8 +8,8 @@ function resetFormState(){
     return ({
         party_name: "",
         theme: "",
-        n_of_guests: 0,
-        budget: 0,
+        n_of_guests: "",
+        budget: "",
         date: `${date.getFullYear()}-${monthString}-${date.getDate()}`
     })
 }
@@ -57,14 +57,15 @@ export default function(props){
                     type="number"
                     name="n_of_guests"
                     placeholder="Number of Guests"
-                    value={formInputs.n_of_guests || undefined}
+                    value={formInputs.n_of_guests}
                     onChange={handleInput}
                 />
                 <input
                     type="number"
+                    step="0.01"
                     name="budget"
                     placeholder="Event Budget"
-                    value={formInputs.budget || undefined}
+                    value={formInputs.budget}
                     onChange={handleInput}
                 />
             </div>
@@ -91,18 +92,30 @@ const EventForm = styled.form`
 
     .formCol {
         input {
-            width: 100%;
+            width: 99%;
+            margin: 2px;
         }
         button {
-            width: 100%;
+            width: 99%;
+            background: lightskyblue;
+            border: 1px solid lightskyblue;
+            margin: 2px;
         }
     }
 
-    @media (max-width: 700px) {
+    @media (max-width: 800px) {
         flex-direction: column;
 
         .formCol {
             display: flex;
+        }
+    }
+
+    @media (max-width: 500px) {
+        flex-direction: column;
+
+        .formCol {
+            flex-direction: column;
         }
     }
 
