@@ -8,7 +8,7 @@ export default function(props) {
   useEffect(() => {
     axios
       .get(
-        `https://unsplash.com/search/photos/?query=${encodeURIComponent(party.theme)}`,
+        `https://unsplash.com/search/photos?Client-ID=0b0cf775d52dc76301a5a814a41adf0d5159b2160989a1ee98b07ea3e086d28a&page=1&query=${encodeURIComponent(`party ${party.theme}`)}`,
         { //config optional arg
           headers: {
             "Content-Type": "application/json",
