@@ -199,7 +199,7 @@ const PartyCardContainer = styled.div`
   ${props => (props.eventPage ? `color: ${colors.darkMain}` : "")}
 
   margin: ${props => (props.eventPage ? "0 auto" : "15px auto")};
-  border-radius: 2px;
+  border-radius: 3px;
   border: ${props => (props.eventPage ? "none" : "none")};
   box-shadow: ${props =>
     props.eventPage ? "none" : "0px 0px 1px rgba(0, 0, 0, 0.7)"};
