@@ -117,15 +117,15 @@ const Login = styled.div`
     align-items: center;
     background: white;
     margin: 0 auto;
-    padding: 20px 30px;;
+    padding: 20px 30px;
     border-radius: 15px;
 
-    width: 30%;
-    min-width: 300px;
-    height: 50%;
+    width: 100%;
+    max-width: 500px;
 
     .title {
         text-align: center;
+        margin-bottom: 75px;
 
         h3 {
             margin-bottom: 25px;
@@ -159,8 +159,9 @@ const Login = styled.div`
 
         button {
             background: lightskyblue;
+            margin-bottom: 20px;
 
-            border: 2px solid lightskyblue
+            border: 2px solid lightskyblue;
             transition: .3s;
 
             &:hover {
