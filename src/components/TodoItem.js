@@ -37,6 +37,7 @@ export default connect(null, {
 const TodoItemContainer = styled.div`
     padding: 10px;
     border: 1px solid lightgray;
+    border-top: none;
     display: flex;
     justify-content: space-between;
 

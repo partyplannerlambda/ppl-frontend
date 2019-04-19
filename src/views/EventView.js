@@ -57,6 +57,12 @@ const EventViewBody = styled.div`
         display: flex;
         justify-content: space-evenly;
         padding: 50px 0;
+
+        @media (max-width: 775px) {
+            flex-direction: column;
+            align-items: center;
+        }
     }
+
     padding-bottom: 50px;
 `

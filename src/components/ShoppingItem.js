@@ -76,6 +76,7 @@ const ShoppingItemContainer = styled.div`
   border: 1px solid lightgray;
   display: flex;
   justify-content: space-between;
+  border-top: none;
 
   .subtle {
     color: gray;

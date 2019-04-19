@@ -1,46 +1,78 @@
-import React, {useState, useEffect} from 'react';
-import {connect} from 'react-redux';
-import {getTodosList, addTodo, clearTodos} from '../actions/todoActions'
+import React, { useState, useEffect } from "react";
+import styled from "styled-components";
+import { connect } from "react-redux";
+import { getTodosList, addTodo, clearTodos } from "../actions/todoActions";
 
-import TodoItem from './TodoItem.js'
+import TodoItem from "./TodoItem.js";
 
-function TodoList(props){
-    const [todoInput, setTodoInput] = useState("")
-    const {party} = props
+function TodoList(props) {
+  const [todoInput, setTodoInput] = useState("");
+  const { party } = props;
 
-    useEffect(()=>{
-        props.getTodosList(party.id);
-        return props.clearTodos
-    }, [])
+  useEffect(() => {
+    props.getTodosList(party.id);
+    return props.clearTodos;
+  }, []);
 
-    const handleTodoInput = event => {
-        setTodoInput(event.target.value)
-    }
+  const handleTodoInput = event => {
+    setTodoInput(event.target.value);
+  };
 
-    const handleSubmit = event => {
-        event.preventDefault()
-        props.addTodo(party.id, todoInput)
-        setTodoInput("")
-    }
-    
-    return (
-        <div>
-            <h3>TODO List:</h3>
-            <form onSubmit={handleSubmit}>
-                <input type="text" name="todoInput" value={todoInput} onChange={handleTodoInput}/>
-                <button type="submit">Add Todo</button>
-            </form>
-            {props.todosList.map(todo => <TodoItem key={todo.id} todo={todo} />)}
+  const handleSubmit = event => {
+    event.preventDefault();
+    props.addTodo(party.id, todoInput);
+    setTodoInput("");
+  };
 
-        </div>
-    )
+  return (
+    <StyledList>
+      <h3>TODO List:</h3>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          name="todoInput"
+          value={todoInput}
+          onChange={handleTodoInput}
+        />
+        <button type="submit">Add</button>
+      </form>
+      {props.todosList.map(todo => (
+        <TodoItem key={todo.id} todo={todo} />
+      ))}
+    </StyledList>
+  );
 }
 
-export default connect(state => ({
+export default connect(
+  state => ({
     todosList: state.todos.todosList,
     party: state.events.activeEvent
-}), {
+  }),
+  {
     getTodosList,
     addTodo,
     clearTodos
-})(TodoList)
+  }
+)(TodoList);
+
+const StyledList = styled.div`
+  width: 45%;
+
+  form {
+    input {
+      border-radius: unset;
+      border-top-left-radius: 5px;
+      width: 80%;
+    }
+    button {
+      border-radius: unset;
+      border-top-right-radius: 5px;
+      min-width: unset;
+      width: 20%;
+    }
+  }
+
+  @media (max-width: 775px) {
+    width: 90%;
+  }
+`;

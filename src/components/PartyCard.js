@@ -217,6 +217,11 @@ const PartyCardContainer = styled.div`
       background: ${props => (props.eventPage ? "none" : colors.main)};
       color: ${props => (props.eventPage ? colors.darkMain : "white")};
 
+      @media (max-width: 400px){
+        flex-direction: column;
+        
+      }
+
       .title {
         display: flex;
         justify-content: center;
@@ -225,7 +230,7 @@ const PartyCardContainer = styled.div`
 
       button {
         background: none;
-        color: ${colors.lightMain}
+        color: ${colors.lightMain};
         width: unset;
         min-width: unset;
         border: none;
@@ -244,6 +249,11 @@ const PartyCardContainer = styled.div`
       display: flex;
       justify-content: space-between;
       padding: 15px;
+
+      @media (max-width: 600px){
+        flex-direction: column;
+
+      }
 
       p {
         font-size: 2em;

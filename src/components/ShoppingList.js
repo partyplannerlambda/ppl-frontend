@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import styled from 'styled-components';
-import { getItemsList, addItem, clearShoppingList } from "../actions/shoppingActions";
+import styled from "styled-components";
+import {
+  getItemsList,
+  addItem,
+  clearShoppingList
+} from "../actions/shoppingActions";
 
 import ShoppingItem from "./ShoppingItem.js";
 
@@ -13,7 +17,7 @@ function ShoppingList(props) {
 
   useEffect(() => {
     props.getItemsList(party.id);
-    return props.clearShoppingList
+    return props.clearShoppingList;
   }, []);
 
   useEffect(() => {
@@ -55,7 +59,7 @@ function ShoppingList(props) {
           value={shoppingInput}
           onChange={handleShoppingInput}
         />
-        <button type="submit">Add Shopping</button>
+        <button type="submit">Add</button>
       </form>
       {props.shoppingList.map(item => (
         <ShoppingItem key={item.id} item={item} />
@@ -77,10 +81,31 @@ export default connect(
 )(ShoppingList);
 
 const ListContainer = styled.div`
-    .listHeader {
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-end;
-        margin-bottom: 5px;
+  width: 45%;
+
+  @media (max-width: 775px) {
+    width: 90%;
+    margin-top: 50px;
+  }
+
+  .listHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 5px;
+  }
+
+  form {
+    input {
+      border-radius: unset;
+      border-top-left-radius: 5px;
+      width: 80%;
     }
-`
+    button {
+      border-radius: unset;
+      border-top-right-radius: 5px;
+      min-width: unset;
+      width: 20%;
+    }
+  }
+`;
