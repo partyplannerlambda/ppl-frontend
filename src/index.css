@@ -81,6 +81,16 @@ code {
   color: #CC4F47;
   background: #FCD6CF;
   padding: 10px;
+  margin-bottom: 10px;
+}
+
+.success {
+  border-radius: 5px;
+  border: 1px solid lightskyblue;
+  color: skyblue;
+  background: white;
+  padding: 10px;
+  margin-bottom: 10px;
 }
 
 .center {

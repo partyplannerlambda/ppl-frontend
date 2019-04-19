@@ -1,13 +1,5 @@
 import axios from "axios";
 
-let config = {
-  baseURL: "https://party-planner-backend.herokuapp.com/",
-  headers: {
-    "Content-Type": "application/json",
-    Authorization: `${window.localStorage.getItem("partyplannertoken")}`
-  }
-};
-
 export const CLEAR_TODOS = "CLEAR_TODOS";
 export const clearTodos = () => {
   return {

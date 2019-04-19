@@ -286,6 +286,10 @@ const PartyCardContainer = styled.div`
       border-color: darkblue;
     }
 
+    .warning {
+         margin-bottom: 0; 
+    }
+
     input {
       display: block;
 
