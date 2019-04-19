@@ -2,13 +2,14 @@ import React, {useState} from 'react';
 import styled from 'styled-components';
 import {connect} from 'react-redux';
 import {Link, Redirect} from 'react-router-dom'
+import Loader from 'react-loader-spinner'
 
 import { login as doLogin, register as doRegister} from '../actions/loginActions'
 
 export function LoginView(props){
 
     if (props.isLoggingIn || props.isRegistering) {
-        return (<div>Validating</div>)
+        return (<div className="center"><Loader type="Ball-Triangle" color="#0f0f0f" height={80} width={80} /></div>)
     }
     if (props.isLoggedIn) {
         return <Redirect to="/" />

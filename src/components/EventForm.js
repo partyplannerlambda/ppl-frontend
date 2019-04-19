@@ -103,7 +103,7 @@ const EventForm = styled.form`
         }
     }
 
-    @media (max-width: 700px) {
+    @media (max-width: 800px) {
         flex-direction: column;
 
         .formCol {

@@ -13,6 +13,7 @@ export const GET_EVENTS_LIST = "GET_EVENTS_LIST";
 export const GET_EVENTS_LIST_SUCCESS = "GET_EVENTS_LIST_SUCCESS";
 export const GET_EVENTS_LIST_FAILURE = "GET_EVENTS_LIST_FAILURE";
 
+let count = 0;
 export const getEventsList = () => dispatch => {
     dispatch({
         type: GET_EVENTS_LIST
@@ -32,6 +33,7 @@ export const getEventsList = () => dispatch => {
                 type: GET_EVENTS_LIST_FAILURE,
                 payload: err.message
             })
+            
         })
 }
 

@@ -7,7 +7,7 @@ import {
 } from '../actions/loginActions.js'
 
 const initialState = {
-    token: window.localStorage.getItem(AUTH_TOKEN) || null,
+    token: null,
     isLoggingIn: false,
     error: null,
     isLoggedIn: false,
@@ -86,6 +86,7 @@ const caseLoggingIn = state => ({
 const caseLoggingInSuccess = (state, action) => {
     console.log("Successful Login", action)
     let {token, username, userID: userId} = action.payload
+    console.log(token);
     return ({
         ...state,
         token,

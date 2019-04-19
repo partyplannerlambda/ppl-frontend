@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { connect } from "react-redux";
+import Loader from 'react-loader-spinner'
+
 import { getTodosList, addTodo, clearTodos } from "../actions/todoActions";
 
 import TodoItem from "./TodoItem.js";
@@ -13,6 +15,10 @@ function TodoList(props) {
     props.getTodosList(party.id);
     return props.clearTodos;
   }, []);
+
+  if (props.gettingTodosList){
+    return (<div className="center"><Loader type="Ball-Triangle" color="#0f0f0f" height={80} width={80} /></div>)
+  }
 
   const handleTodoInput = event => {
     setTodoInput(event.target.value);
@@ -46,6 +52,7 @@ function TodoList(props) {
 export default connect(
   state => ({
     todosList: state.todos.todosList,
+    gettingTodosList: state.todos.gettingTodosList,
     party: state.events.activeEvent
   }),
   {

@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
-import styled from 'styled-components'
-import Loader from 'react-loader-spinner'
+import styled from 'styled-components';
+import Loader from 'react-loader-spinner';
 import {connect} from 'react-redux';
 
 import Header from '../components/Header'
@@ -48,7 +48,7 @@ export default connect(state => ({
 })(MainView)
 
 const Container = styled.div`
-    max-width: 1400px;
+    max-width: 1200px;
     margin: 0 auto;
 `
 

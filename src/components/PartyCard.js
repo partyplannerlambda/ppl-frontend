@@ -134,7 +134,7 @@ const PartyCard = withRouter(function(props) {
               {party.theme}
             </p>
           )}
-
+          
           {/* Number of Guests */}
           {isEditing ? (
             <input
@@ -202,7 +202,15 @@ const PartyCardContainer = styled.div`
   border-radius: 5px;
   border: ${props => (props.eventPage ? "none" : "1px solid black")};
   box-shadow: ${props =>
-    props.eventPage ? "none" : "2px 2px 2px 0.5px rgba(0, 0, 0, 0.3)"};
+    props.eventPage ? "none" : "3px 3px 2px rgba(0, 0, 0, 0.3)"};
+
+  ${props => (!props.eventPage) ? (`
+  transition: .15s;
+  &:hover{
+    box-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+  }`) : (
+    ""
+  )}
 
   strong {
     font-size: inherit;
@@ -217,7 +225,7 @@ const PartyCardContainer = styled.div`
       background: ${props => (props.eventPage ? "none" : colors.main)};
       color: ${props => (props.eventPage ? colors.darkMain : "white")};
 
-      @media (max-width: 400px){
+      @media (max-width: 600px){
         flex-direction: column;
         
       }
@@ -250,13 +258,24 @@ const PartyCardContainer = styled.div`
       justify-content: space-between;
       padding: 15px;
 
+      @media (max-width: 800px) {
+        strong {
+          display: block;
+        }
+      }
+
       @media (max-width: 600px){
         flex-direction: column;
-
+        align-items: center;
+        text-align: center;
       }
 
       p {
         font-size: 2em;
+        width: 32%;
+        @media (max-width: 600px){
+          width: 95%;
+        }
       }
     
     }

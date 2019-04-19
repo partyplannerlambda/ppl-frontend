@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
+import Loader from 'react-loader-spinner';
 import {
   getItemsList,
   addItem,
@@ -32,6 +33,10 @@ function ShoppingList(props) {
           )
     );
   }, [props.shoppingList]);
+
+  if (props.gettingShoppingList){
+    return (<div className="center"><Loader type="Ball-Triangle" color="#0f0f0f" height={80} width={80} /></div>)
+  }
 
   const handleShoppingInput = event => {
     setShoppingInput(event.target.value);
@@ -71,6 +76,7 @@ function ShoppingList(props) {
 export default connect(
   state => ({
     shoppingList: state.shopping.shoppingList,
+    gettingShoppingList: state.shopping.gettingShoppingList,
     party: state.events.activeEvent
   }),
   {
