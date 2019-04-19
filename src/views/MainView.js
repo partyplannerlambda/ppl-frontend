@@ -22,6 +22,7 @@ function MainView(props){
 
     return (<>
         <Header />
+        <Container>
         <SubHeader><h2>Add A Party!</h2></SubHeader>
         {props.isAddingEvent && <Loader type="Ball-Triangle" color="#0f0f0f" height={80} width={80} />}
         <div>
@@ -32,6 +33,7 @@ function MainView(props){
                 {!!props.events ? props.events.map(party => <PartyCard key={party.id} party={party} />) : <div>No Parties?</div>}
             </CardContainer>
         </div>
+        </Container>
     </>)
 }
 
@@ -44,6 +46,11 @@ export default connect(state => ({
     getEventsList,
     addEvent
 })(MainView)
+
+const Container = styled.div`
+    max-width: 1400px;
+    margin: 0 auto;
+`
 
 const SubHeader = styled.div`
     width: 80%;

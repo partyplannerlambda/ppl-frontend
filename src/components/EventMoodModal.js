@@ -23,8 +23,7 @@ export default function(props) {
       )
       .then(res => {
         console.log("This is in the Image Modal", res);
-        let index = Math.floor(Math.random() * 11);
-        setImgUrl(res.data.results[index].urls.small);
+        setImgUrl(res.data.results[0].urls.small);
       })
       .catch(err => {
         console.log("This is in the Image Modal", err);
