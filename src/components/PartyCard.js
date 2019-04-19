@@ -199,15 +199,15 @@ const PartyCardContainer = styled.div`
   ${props => (props.eventPage ? `color: ${colors.darkMain}` : "")}
 
   margin: ${props => (props.eventPage ? "0 auto" : "15px auto")};
-  border-radius: 5px;
-  border: ${props => (props.eventPage ? "none" : "1px solid black")};
+  border-radius: 2px;
+  border: ${props => (props.eventPage ? "none" : "none")};
   box-shadow: ${props =>
-    props.eventPage ? "none" : "3px 3px 2px rgba(0, 0, 0, 0.3)"};
+    props.eventPage ? "none" : "0px 0px 1px rgba(0, 0, 0, 0.7)"};
 
   ${props => (!props.eventPage) ? (`
   transition: .15s;
   &:hover{
-    box-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+    box-shadow: 2px 2px 1px rgba(0,0,0,0.3);
   }`) : (
     ""
   )}
