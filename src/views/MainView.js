@@ -15,7 +15,7 @@ import {
 function MainView(props){
     
     useEffect(()=>{
-        props.getEventsList();
+        props.getEventsList(props.token);
     }, [])
 
     console.log(props.events)
@@ -39,6 +39,7 @@ function MainView(props){
 
 export default connect(state => ({
     userId: state.login.userId,
+    token: state.login.token,
     events: state.events.events,
     isLoadingEvents: state.events.gettingEventsList,
     isAddingEvent: state.events.addingEvent
