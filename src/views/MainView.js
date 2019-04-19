@@ -33,6 +33,7 @@ function MainView(props) {
           />
           <SubHeader>
             <h1>Your Parties</h1>
+            <p>Click on a party to get more details!</p>
           </SubHeader>
           <CardContainer>
             {(props.isLoadingEvents || props.isAddingEvent) && (
