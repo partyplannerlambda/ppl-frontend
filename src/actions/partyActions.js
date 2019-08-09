@@ -97,7 +97,16 @@ export const addEvent = (userId, event) => dispatch => {
     type: ADD_EVENT
   });
 
-  let newEvent = { user_id: userId, ...event };
+  console.log(event)
+  
+  let newEvent = { 
+    user_id: userId,
+    theme: event.theme || 'carrots',
+    n_of_guests: event.n_of_guests || 0,
+    budget: event.budget || 0,
+    party_name: event.party_name || "Carrot Party"
+  };
+
   newEvent["user_id"] -= 0;
   newEvent["n_of_guests"] -= 0;
   newEvent["budget"] -= 0;

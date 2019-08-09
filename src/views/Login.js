@@ -61,7 +61,7 @@ export function LoginView(props){
                 <h3>The App!</h3>
                 <h2>{register ? "Register" : "Login"}</h2>
             </div>
-            {props.registerSuccesful && <div className="prompt">Login with your newly Created Credentials!</div>}
+            {props.registerSuccesful && <div className="prompt success">Login with your newly Created Credentials!</div>}
             {props.error && <div className="warning">{props.error}</div>}
             {localError && <div className="warning">{localError}</div>}
             <form>

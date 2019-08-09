@@ -121,7 +121,7 @@ function caseGetEventFailure(state, action){
 function caseAddEvent(state, action){
     return {
         ...state,
-        addingEvent: false,
+        addingEvent: true,
         error: null
     }
 }

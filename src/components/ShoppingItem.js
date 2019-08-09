@@ -13,9 +13,10 @@ function ShoppingItem(props) {
     let price = undefined;
 
     if (!item.purchased) {
-      price = window.prompt("how much did that cost?") - 0;
+      price = window.prompt("how much did that cost?");
+      console.log(price)
 
-      if (price === null) {
+      if (price === null || price === undefined) {
         return;
       }
 
@@ -27,7 +28,7 @@ function ShoppingItem(props) {
       props.updateItem({
         ...item,
         purchased: !!item.purchased ? 0 : 1,
-        price: price
+        price: price - 0
       });
       return;
     }

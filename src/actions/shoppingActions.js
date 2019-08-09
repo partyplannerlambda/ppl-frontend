@@ -1,5 +1,4 @@
 import axios from "axios";
-import { GET_AXIOS_CONFIG } from "../config";
 
 export const CLEAR_SHOPPING_LIST = "CLEAR_SHOPPING_LIST";
 export const clearShoppingList = () => {
